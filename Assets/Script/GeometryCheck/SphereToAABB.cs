@@ -2,8 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoundingBox : MonoBehaviour
+public class SphereToAABB : MonoBehaviour
 {
+    public Vector3 Center;
+
+    public float R;
+
     public Vector3 P1;
 
     public Vector3 P2;
@@ -22,17 +26,22 @@ public class BoundingBox : MonoBehaviour
     {
         
     }
+
     private void OnDrawGizmos()
     {
-        GizmosExtension.DrawLHCoordinate(Vector3.zero);
 
+        Gizmos.color = Color.green;
         GizmosExtension.DrawWireTriangle(P1,P2,P3);
 
+        Gizmos.color = Color.red;
         box.SetToEmpety();
         box.Add(P1);
         box.Add(P2);
         box.Add(P3);
-        Gizmos.color = Color.red;
         GizmosExtension.DrawBoundingBox(box.min,box.max);
+
+        bool intersect = MathUtil.GetSphereToAABBIntersect(Center, R, box);
+        Gizmos.color = intersect ? Color.green : Color.red;
+        Gizmos.DrawSphere(Center,R);
     }
 }

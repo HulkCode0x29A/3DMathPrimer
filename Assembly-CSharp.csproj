@@ -53,26 +53,42 @@
     <UnityVersion>2020.3.23f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\GeometricPrimitive\BarycentricViewing.cs" />
     <Compile Include="Assets\Script\Matrix\MatrixPerspective.cs" />
+    <Compile Include="Assets\Script\GeometricPrimitive\BarycentricCoordinates.cs" />
     <Compile Include="Assets\Script\GeometricPrimitive\ParameterEquation.cs" />
     <Compile Include="Assets\Script\Tool\GizmosExtension.cs" />
+    <Compile Include="Assets\Script\Test.cs" />
+    <Compile Include="Assets\Script\GeometricPrimitive\BarycentricCoordinates3D.cs" />
+    <Compile Include="Assets\Script\GeometricPrimitive\PlaneToPoint.cs" />
     <Compile Include="Assets\Script\Matrix\MatrixGramSchmidt.cs" />
     <Compile Include="Assets\Script\Vector\VectorInterpolation.cs" />
     <Compile Include="Assets\Script\Matrix\MatrixShear.cs" />
+    <Compile Include="Assets\Script\GeometricPrimitive\PlaneDraw.cs" />
+    <Compile Include="Assets\Script\GeometryCheck\PointToAABB.cs" />
     <Compile Include="Assets\Script\Matrix\MatrixRotateByAxis.cs" />
     <Compile Include="Assets\Script\Vector\VectorCrossProduct.cs" />
     <Compile Include="Assets\Script\Vector\VectorDotProduct.cs" />
+    <Compile Include="Assets\Script\GeometricPrimitive\SphereEquation.cs" />
     <Compile Include="Assets\Script\Vector\VectorOperation.cs" />
+    <Compile Include="Assets\Script\GeometryCheck\ImplicitLineIntersection.cs" />
     <Compile Include="Assets\Script\Orientation\EulerAngleLerp.cs" />
     <Compile Include="Assets\Script\Matrix\MatrixTranslation.cs" />
     <Compile Include="Assets\Script\Matrix\MatrixOperation.cs" />
+    <Compile Include="Assets\Script\GeometryCheck\PointToParameterRay.cs" />
     <Compile Include="Assets\Script\GeometricPrimitive\RayEquation.cs" />
     <Compile Include="Assets\Script\Tool\MatrixUtil.cs" />
+    <Compile Include="Assets\Script\GeometryCheck\PointToSphere.cs" />
     <Compile Include="Assets\Script\Matrix\MatrixCompose.cs" />
     <Compile Include="Assets\Script\Matrix\MatrixAffine.cs" />
+    <Compile Include="Assets\Script\GeometryCheck\PointToPlane.cs" />
+    <Compile Include="Assets\Script\GeometryCheck\PointToImplicitLine.cs" />
+    <Compile Include="Assets\Script\Tool\MathUtil.cs" />
+    <Compile Include="Assets\Scripts\Tool\PixelScreen.cs" />
     <Compile Include="Assets\Script\Matrix\MatrixScale.cs" />
-    <Compile Include="Assets\Resources\Demo_Animals\DemoData\AnimationDemo.cs" />
     <Compile Include="Assets\Script\Vector\VectorSubtraction.cs" />
+    <Compile Include="Assets\Script\GeometricPrimitive\TriangleSpecialPoint.cs" />
+    <Compile Include="Assets\Script\GeometricPrimitive\BoundingBox.cs" />
     <Compile Include="Assets\Script\Matrix\MatrixScaleByAxis.cs" />
     <Compile Include="Assets\Script\Matrix\MatrixProjectionByAxis.cs" />
     <Compile Include="Assets\Script\Matrix\MatrixProjection.cs" />
@@ -80,10 +96,17 @@
     <Compile Include="Assets\Script\Matrix\MatrixRotate.cs" />
     <Compile Include="Assets\Script\Vector\VectorProjection.cs" />
     <Compile Include="Assets\Script\Matrix\MatrixReflectByAxis.cs" />
-    <Compile Include="Assets\Script\Vector\RuleOfTriangles.cs" />
+    <Compile Include="Assets\Script\GeometricPrimitive\BasicsTriangle.cs" />
     <Compile Include="Assets\Script\GeometricPrimitive\LineEquation.cs" />
-    <Compile Include="Assets\Script\GeometricPrimitive\SphereEquation.cs" />
-    <Compile Include="Assets\Script\GeometricPrimitive\BoundingBox.cs" />
+    <Compile Include="Assets\Script\Vector\RuleOfTriangles.cs" />
+    <Compile Include="Assets\Script\GeometricPrimitive\PlaneEquation.cs" />
+    <Compile Include="Assets\Script\GeometryCheck\RayIntersection.cs" />
+    <Compile Include="Assets\Script\GeometryCheck\RayToPlane.cs" />
+    <Compile Include="Assets\Script\GeometryCheck\ThreePlanesIntersection.cs" />
+    <Compile Include="Assets\Script\GeometryCheck\RayToSphere.cs" />
+    <Compile Include="Assets\Script\GeometryCheck\StaticSphereIntersection.cs" />
+    <Compile Include="Assets\Script\GeometryCheck\DynamicSphereIntersection.cs" />
+    <Compile Include="Assets\Script\GeometryCheck\SphereToAABB.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

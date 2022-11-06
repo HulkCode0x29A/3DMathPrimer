@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoundingBox : MonoBehaviour
+public class BasicsTriangle : MonoBehaviour
 {
     public Vector3 P1;
 
@@ -10,7 +10,9 @@ public class BoundingBox : MonoBehaviour
 
     public Vector3 P3;
 
-    private AABB3 box = new AABB3();
+    public float Perimeter;
+
+    public float Area;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,17 +24,21 @@ public class BoundingBox : MonoBehaviour
     {
         
     }
+
     private void OnDrawGizmos()
     {
         GizmosExtension.DrawLHCoordinate(Vector3.zero);
 
+        Gizmos.color = Color.white;
         GizmosExtension.DrawWireTriangle(P1,P2,P3);
 
-        box.SetToEmpety();
-        box.Add(P1);
-        box.Add(P2);
-        box.Add(P3);
-        Gizmos.color = Color.red;
-        GizmosExtension.DrawBoundingBox(box.min,box.max);
+        Vector3 e1 = P3 - P2;
+        Vector3 e2 = P1 - P3;
+        Vector3 e3 = P2 - P1;
+        Perimeter = MathUtil.GetTrianglePerimeter(e1, e2,e3);
+
+        //Area = MathUtil.GetTriangleArea(e1,e2,e3);
+        Area = MathUtil.GetTriangleArea(e1, e2);
+
     }
 }

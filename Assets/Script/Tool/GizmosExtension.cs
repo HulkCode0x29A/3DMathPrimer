@@ -255,4 +255,52 @@ public class GizmosExtension
         DrawWireCube(center, size);
     }
 
+
+
+    /// <summary>
+    /// Draw the plane
+    /// </summary>
+    /// <param name="p">a point on the plane</param>
+    /// <param name="n">surface normals</param>
+    /// <param name="drawNormal"></param>
+    public static void DrawWirePlane(Vector3 p, Vector3 n, Color nomralColor, Color planeColor,  bool drawNormal = false)
+    {
+        //Gizmos.color = Color.white;
+        //Gizmos.DrawSphere(p, 0.1f);
+
+        Vector3 v3;
+        if (n.normalized != Vector3.forward)
+            v3 = Vector3.Cross(n, Vector3.forward).normalized * n.magnitude;
+        else
+            v3 = Vector3.Cross(n, Vector3.up).normalized * n.magnitude;
+
+        if(drawNormal)
+        {
+            Gizmos.color = nomralColor;
+            Gizmos.DrawLine(Vector3.zero, n);
+        }
+        
+        //Gizmos.color = Color.blue;
+        //Gizmos.DrawLine(Vector3.zero, v3);
+
+        Vector3 corner0 = p + v3;
+        Vector3 corner2 = p - v3;
+        var q = Quaternion.AngleAxis(90.0f, n);
+        v3 = q * v3;
+
+        //Gizmos.color = Color.green;
+        //Gizmos.DrawLine(Vector3.zero, v3);
+
+        Vector3 corner1 = p + v3;
+        Vector3 corner3 = p - v3;
+
+        Gizmos.color = planeColor;
+        Gizmos.DrawLine(corner0, corner2);
+        Gizmos.DrawLine(corner1, corner3);
+        Gizmos.DrawLine(corner0, corner1);
+        Gizmos.DrawLine(corner1, corner2);
+        Gizmos.DrawLine(corner2, corner3);
+        Gizmos.DrawLine(corner3, corner0);
+    }
+
 }
