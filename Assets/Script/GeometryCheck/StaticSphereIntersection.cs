@@ -12,6 +12,8 @@ public class StaticSphereIntersection : MonoBehaviour
     public Vector3 Center2;
 
     public float R2;
+
+    private IntersectInfo info = new IntersectInfo();
     // Start is called before the first frame update
     void Start()
     {
@@ -28,10 +30,10 @@ public class StaticSphereIntersection : MonoBehaviour
     {
         GizmosExtension.DrawLHCoordinate(Vector3.zero);
 
-        bool intersect = MathUtil.GetStaticSphereIntersect(Center1, R1, Center2, R2);
-        Gizmos.color = intersect ? Color.green : Color.red;
+        MathUtil.GetStaticSphereIntersect(Center1, R1, Center2, R2, info);
+        Gizmos.color = info.Intersect ? Color.green : Color.red;
 
-        Gizmos.DrawSphere(Center1,R1);
+        Gizmos.DrawSphere(Center1, R1);
         Gizmos.DrawSphere(Center2, R2);
 
     }

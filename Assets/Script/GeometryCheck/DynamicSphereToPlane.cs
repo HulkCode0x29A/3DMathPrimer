@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RayToPlane : MonoBehaviour
+public class DynamicSphereToPlane : MonoBehaviour
 {
     public Vector3 P;
 
     public Vector3 N;
 
-    public Vector3 Origin;
+    public Vector3 Center;
+
+    public float R;
 
     public Vector3 Direction;
 
@@ -31,16 +33,19 @@ public class RayToPlane : MonoBehaviour
     {
         GizmosExtension.DrawWirePlane(P, N, Color.yellow, Color.white, true);
 
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawSphere(Origin, 0.1f);
-        Gizmos.DrawLine(Origin, Origin + T * Direction.normalized);
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(Center, R);
+        Gizmos.DrawLine(Center, Center + T * Direction.normalized);
 
-        float planeD = MathUtil.GetPlane(P, Direction.normalized);
-        MathUtil.GetRayToPlaneIntersection(Origin, Direction.normalized, N, planeD, info);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawSphere(Center + T * Direction.normalized, R);
+
+        MathUtil.GetDynamicSphereToPlane(Center, R, Direction.normalized, P, N.normalized, info);
         if (info.Intersect && info.Float1 <= T)
         {
-            Gizmos.color = Color.red;
-            Gizmos.DrawSphere(info.Vector1, 0.1f);
+            Gizmos.color = Color.green;
+            Gizmos.DrawSphere(info.Vector1, R);
         }
+
     }
 }

@@ -330,10 +330,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Start1: {x: 0, y: 0, z: 0}
   Direction1: {x: 1, y: 1, z: 0}
-  T1: 5
+  T1: 3.97
   Start2: {x: 3, y: 0, z: 0}
-  Direction2: {x: -0.5, y: 5, z: 2.58}
-  T2: 5
+  Direction2: {x: -0.5, y: 1.88, z: 0}
+  T2: 2.85
+  Strict: 1
 --- !u!4 &1591687514
 Transform:
   m_ObjectHideFlags: 0

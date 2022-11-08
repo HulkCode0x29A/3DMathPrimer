@@ -13,6 +13,8 @@ public class RayToSphere : MonoBehaviour
     public Vector3 Center;
 
     public float R;
+
+    private IntersectInfo info = new IntersectInfo();
     // Start is called before the first frame update
     void Start()
     {
@@ -30,13 +32,18 @@ public class RayToSphere : MonoBehaviour
         GizmosExtension.DrawLHCoordinate(Vector3.zero);
 
         Gizmos.color = Color.cyan;
-        Gizmos.DrawLine(Origin, Origin + T * Direction);
+        Gizmos.DrawSphere(Origin ,0.1f);
+        Gizmos.DrawLine(Origin, Origin + T * Direction.normalized);
 
         Gizmos.color = Color.green;
         Gizmos.DrawSphere(Center, R);
 
-        Vector3 point = MathUtil.GetRayToSphereIntersection(Origin, Direction.normalized, Center, R);
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(point,0.1f);
+        MathUtil.GetRayToSphereIntersection(Origin, Direction.normalized, Center, R, info);
+
+        if(info.Intersect && info.Float1 <= T)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(info.Vector1, 0.1f);
+        }
     }
 }

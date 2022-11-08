@@ -15,6 +15,8 @@ public class DynamicSphereIntersection : MonoBehaviour
     public Vector3 Center2;
 
     public float R2;
+
+    private IntersectInfo info = new IntersectInfo();
     // Start is called before the first frame update
     void Start()
     {
@@ -37,9 +39,16 @@ public class DynamicSphereIntersection : MonoBehaviour
         Gizmos.DrawSphere(Center2, R2);
 
         Gizmos.DrawLine(Center1, Center1 + T * Direction.normalized);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawSphere(Center1 + T * Direction.normalized , R1);
 
-        Vector3 point = MathUtil.GetDynamicSphereIntersect(Center1,R1,Direction.normalized,T,Center2,R2);
-        Gizmos.color = Color.green;
-        Gizmos.DrawSphere(point, R1);
+        MathUtil.GetDynamicSphereIntersect(Center1,R1,Direction.normalized,Center2,R2, info);
+
+        if(info.Intersect && info.Float1 <= T)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawSphere(info.Vector1, R1);
+        }
+        
     }
 }

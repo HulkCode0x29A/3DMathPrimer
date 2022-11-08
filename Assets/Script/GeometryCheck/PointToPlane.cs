@@ -9,6 +9,10 @@ public class PointToPlane : MonoBehaviour
     public Vector3 N;
 
     public GameObject Obj;
+
+    private IntersectInfo info = new IntersectInfo();
+
+    public float Debug;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,9 +29,11 @@ public class PointToPlane : MonoBehaviour
     {
         GizmosExtension.DrawWirePlane(P,N, Color.yellow, Color.white, true);
 
-        Vector3 point = MathUtil.GetNearstPointToPlane(P,N.normalized,Obj.transform.position);
+        MathUtil.GetNearstPointToPlane(P,N.normalized,Obj.transform.position, info);
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(point,0.1f);
-        Gizmos.DrawLine(Obj.transform.position, point);
+        Gizmos.DrawSphere(info.Vector1,0.1f);
+        Gizmos.DrawLine(Obj.transform.position, info.Vector1);
+
+        Debug = info.Float1;
     }
 }

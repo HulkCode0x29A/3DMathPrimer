@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RayToPlane : MonoBehaviour
-{
-    public Vector3 P;
 
-    public Vector3 N;
+public class RayToTriangle : MonoBehaviour
+{
+    public Vector3 P1;
+
+    public Vector3 P2;
+
+    public Vector3 P3;
 
     public Vector3 Origin;
 
@@ -29,18 +32,22 @@ public class RayToPlane : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        GizmosExtension.DrawWirePlane(P, N, Color.yellow, Color.white, true);
+        GizmosExtension.DrawLHCoordinate(Vector3.zero);
 
-        Gizmos.color = Color.cyan;
+        GizmosExtension.DrawWireTriangle(P1, P2, P3);
+
+        Gizmos.color = Color.red;
         Gizmos.DrawSphere(Origin, 0.1f);
         Gizmos.DrawLine(Origin, Origin + T * Direction.normalized);
 
-        float planeD = MathUtil.GetPlane(P, Direction.normalized);
-        MathUtil.GetRayToPlaneIntersection(Origin, Direction.normalized, N, planeD, info);
-        if (info.Intersect && info.Float1 <= T)
+        MathUtil.GetRayToTriangleIntersection(Origin, Direction.normalized, P1, P2, P3, info);
+        if(info.Intersect && info.Float1 <= T)
         {
-            Gizmos.color = Color.red;
+            Gizmos.color = Color.green;
             Gizmos.DrawSphere(info.Vector1, 0.1f);
         }
+        
+
+
     }
 }

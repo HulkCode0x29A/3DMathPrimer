@@ -15,6 +15,8 @@ public class ThreePlanesIntersection : MonoBehaviour
     public Vector3 P3;
 
     public Vector3 N3;
+
+    private IntersectInfo info = new IntersectInfo();
     // Start is called before the first frame update
     void Start()
     {
@@ -33,8 +35,13 @@ public class ThreePlanesIntersection : MonoBehaviour
         GizmosExtension.DrawWirePlane(P1, N1,Color.red, Color.red);
         GizmosExtension.DrawWirePlane(P2, N2,Color.green, Color.green);
         GizmosExtension.DrawWirePlane(P3, N3,Color.blue, Color.blue);
-        Vector3 point = MathUtil.GetThreePlanesIntersection(P1,N1,P2,N2,P3,N3);
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(point, 0.1f);
+        MathUtil.GetThreePlanesIntersection(P1,N1,P2,N2,P3,N3, info);
+
+        if (info.Intersect)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(info.Vector1, 0.1f);
+        }
+        
     }
 }

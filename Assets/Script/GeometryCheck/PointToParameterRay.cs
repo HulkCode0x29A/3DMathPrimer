@@ -22,6 +22,8 @@ public class PointToParameterRay : MonoBehaviour
     public float T;
 
     public GameObject Obj;
+
+    private IntersectInfo info = new IntersectInfo();
     // Start is called before the first frame update
     void Start()
     {
@@ -46,16 +48,23 @@ public class PointToParameterRay : MonoBehaviour
                 Gizmos.color = Color.cyan;
                 Gizmos.DrawLine(Origin, Origin + Length * Direction.normalized);
 
-                Vector3 point1 = MathUtil.GetNearstPointToLengthRay(Origin, Direction.normalized, Obj.transform.position);
+                MathUtil.GetNearstPointToLengthRay(Origin, Direction.normalized, Obj.transform.position, info);
+
+                //Length must >= 0
+                info.Float1 = Mathf.Clamp(info.Float1, 0, Length);
+                Vector3 point1 = Origin + info.Float1 * Direction.normalized;
                 Gizmos.color = Color.red;
                 Gizmos.DrawSphere(point1, 0.1f);
                 Gizmos.DrawLine(Obj.transform.position, point1);
                 break;
             case RayDefine.DefineWithT:
                 Gizmos.color = Color.cyan;
-                Gizmos.DrawLine(Origin, (End - Origin) * T);
+                Vector3 endToOrigin = End - Origin;
+                Gizmos.DrawLine(Origin, endToOrigin * T);
 
-                Vector3 point2 = MathUtil.GetNearstPointToTRay(Origin, Direction, Obj.transform.position);
+                MathUtil.GetNearstPointToTRay(Origin, endToOrigin, Obj.transform.position, info);
+                info.Float1 = Mathf.Clamp(info.Float1, 0, (endToOrigin * T).magnitude);
+                Vector3 point2 = Origin + info.Float1 * endToOrigin.normalized;
                 Gizmos.color = Color.red;
                 Gizmos.DrawSphere(point2, 0.1f);
                 Gizmos.DrawLine(Obj.transform.position, point2);

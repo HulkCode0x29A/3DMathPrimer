@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,6 +30,20 @@ public class AABB3
         if (p.z > max.z)
             max.z = p.z;
     }
+}
+
+[Serializable]
+public class IntersectInfo
+{
+    public bool Intersect { get; set; }
+
+    public float Float1 { get; set; }
+
+    public float Float2 { get; set; }
+
+    public Vector3 Vector1 { get; set; }
+
+    public Vector3 Vector2 { get; set; }
 }
 public class MathUtil
 {
@@ -322,11 +337,16 @@ public class MathUtil
     /// <param name="start">ray start point</param>
     /// <param name="direction">ray direction need normalize</param>
     /// <param name="fixedpoint">arbitrary point </param>
+    /// <param name="info">intersect info </param>
     /// <returns></returns>
-    public static Vector3 GetNearstPointToLengthRay(Vector3 start, Vector3 direction, Vector3 fixedpoint)
+    public static void GetNearstPointToLengthRay(Vector3 start, Vector3 direction, Vector3 fixedpoint, IntersectInfo info)
     {
-        Vector3 point = start + (Vector3.Dot(direction, fixedpoint - start)) * direction;
-        return point;
+        float t = Vector3.Dot(direction, fixedpoint - start);
+        Vector3 point = start + t * direction;
+
+        info.Intersect = true;
+        info.Float1 = t;
+        info.Vector1 = point;
     }
 
     /// <summary>
@@ -335,11 +355,16 @@ public class MathUtil
     /// <param name="start">ray start point</param>
     /// <param name="direction">ray direction</param>
     /// <param name="fixedpoint">arbitrary point</param>
+    /// <param name="info">intersect info</param>
     /// <returns></returns>
-    public static Vector3 GetNearstPointToTRay(Vector3 start, Vector3 direction, Vector3 fixedpoint)
+    public static void GetNearstPointToTRay(Vector3 start, Vector3 direction, Vector3 fixedpoint, IntersectInfo info)
     {
-        Vector3 point = start + (Vector3.Dot(direction, fixedpoint - start) / direction.magnitude) * direction.normalized;
-        return point;
+        float t = Vector3.Dot(direction, fixedpoint - start) / direction.magnitude;
+        Vector3 point = start + t * direction.normalized;
+
+        info.Intersect = true;
+        info.Float1 = t;
+        info.Vector1 = point;
     }
 
     /// <summary>
@@ -348,26 +373,36 @@ public class MathUtil
     /// <param name="planePoint">a point on the plane</param>
     /// <param name="planeNormal">plane normals need to be normalized</param>
     /// <param name="fixedPoint">arbitrary point</param>
+    /// <param name="info">intersect info</param>
     /// <returns></returns>
-    public static Vector3 GetNearstPointToPlane(Vector3 planePoint, Vector3 planeNormal, Vector3 fixedPoint)
+    public static void GetNearstPointToPlane(Vector3 planePoint, Vector3 planeNormal, Vector3 fixedPoint, IntersectInfo info)
     {
         float d = GetPlane(planePoint, planeNormal);
-        Vector3 point = fixedPoint + (d - Vector3.Dot(fixedPoint, planeNormal)) * planeNormal;
-        return point;
+        float t = (d - Vector3.Dot(fixedPoint, planeNormal));
+        Vector3 point = fixedPoint + t * planeNormal;
+
+        info.Intersect = true;
+        info.Float1 = t;
+        info.Vector1 = point;
     }
 
     /// <summary>
     /// Get the closest point to the ball
     /// </summary>
     /// <param name="center">centre of sphere</param>
-    /// <param name="fixedPoint">arbitrary point</param>
     /// <param name="radius">radius of sphere</param>
+    /// <param name="fixedPoint">arbitrary point</param>
+    /// <param name="info">intersect info</param>
     /// <returns></returns>
-    public static Vector3 GetNearstPointToSphere(Vector3 center, Vector3 fixedPoint, float radius)
+    public static void GetNearstPointToSphere(Vector3 center, float radius, Vector3 fixedPoint, IntersectInfo info)
     {
         Vector3 d = center - fixedPoint;
-        Vector3 point = fixedPoint + ((d.magnitude - radius) / d.magnitude) * d;
-        return point;
+        float t = (d.magnitude - radius) / d.magnitude;
+        Vector3 point = fixedPoint + t * d;
+
+        info.Intersect = true;
+        info.Float1 = t;
+        info.Vector1 = point;
     }
 
     /// <summary>
@@ -375,8 +410,9 @@ public class MathUtil
     /// </summary>
     /// <param name="box">bounding box</param>
     /// <param name="fixedPoint">arbitrary point</param>
+    /// <param name="info">intersect info</param>
     /// <returns></returns>
-    public static Vector3 GetNearstPointToAABB(AABB3 box, Vector3 fixedPoint)
+    public static void GetNearstPointToAABB(AABB3 box, Vector3 fixedPoint, IntersectInfo info)
     {
         Vector3 point = fixedPoint;
         if (point.x < box.min.x)
@@ -394,7 +430,8 @@ public class MathUtil
         else if (point.z > box.max.z)
             point.z = box.max.z;
 
-        return point;
+        info.Intersect = true;
+        info.Vector1 = point;
     }
 
     /// <summary>
@@ -405,61 +442,76 @@ public class MathUtil
     /// <param name="normal2">line 2  normal</param>
     /// <param name="d2">line 2  value</param>
     /// <returns></returns>
-    public static Vector2 GetImplicitLineIntersection(Vector2 normal1, float d1, Vector2 normal2, float d2)
+    public static void GetImplicitLineIntersection(Vector2 normal1, float d1, Vector2 normal2, float d2, IntersectInfo info)
     {
+        info.Intersect = false;
+
         float numerator1 = normal2.y * d1 - normal1.y * d2;
         float numerator2 = normal1.x * d2 - normal2.x * d1;
         float denominator = normal1.x * normal2.y - normal2.x * normal1.y;
         if (denominator == 0.0f)
-            return Vector2.zero;
+            return;
 
         float x = numerator1 / denominator;
         float y = numerator2 / denominator;
-        Vector2 point = new Vector3(x, y);
-        return point;
+
+        info.Intersect = true;
+        info.Vector1 = new Vector3(x, y, 0);
     }
 
     /// <summary>
     /// Get the intersection of the two rays
     /// </summary>
     /// <param name="point1">ray starting point</param>
-    /// <param name="direction1">ray direction</param>
+    /// <param name="direction1">ray direction need normalize</param>
     /// <param name="point2">ray starting point</param>
-    /// <param name="direction2">ray direction</param>
+    /// <param name="direction2">ray direction need normalize</param>
+    /// <param name="info">intersect info</param>
     /// <returns></returns>
-    public static Vector3[] GetRayIntersection(Vector3 point1, Vector3 direction1, Vector3 point2, Vector3 direction2)
+    public static void GetRayIntersection(Vector3 point1, Vector3 direction1, Vector3 point2, Vector3 direction2, IntersectInfo info)
     {
+        info.Intersect = false;
         float numerator1 = Vector3.Dot(Vector3.Cross((point2 - point1), direction2), Vector3.Cross(direction1, direction2));
         float numerator2 = Vector3.Dot(Vector3.Cross((point2 - point1), direction1), Vector3.Cross(direction1, direction2));
         float denominator = Mathf.Pow(Vector3.Cross(direction1, direction2).magnitude, 2);
         if (denominator == 0.0f)
-            return new Vector3[] { Vector3.zero, Vector3.zero };
+            return;
 
         float t1 = numerator1 / denominator;
         float t2 = numerator2 / denominator;
         Vector3 p1 = point1 + t1 * direction1;
         Vector3 p2 = point2 + t2 * direction2;
-        return new Vector3[] { p1, p2 };
+        info.Intersect = true;
+        info.Float1 = t1;
+        info.Float2 = t2;
+        info.Vector1 = p1;
+        info.Vector2 = p2;
     }
 
     /// <summary>
     /// Get rays and plane intersection points
     /// </summary>
     /// <param name="rayStart">ray start point</param>
-    /// <param name="rayDirection">ray direction </param>
+    /// <param name="rayDirection">ray direction need normalize </param>
     /// <param name="planeNormal">plane normal</param>
     /// <param name="planeD">plane implicit parameter</param>
+    /// <param name="info">intersect info</param>
     /// <returns></returns>
-    public static Vector3 GetRayToPlaneIntersection(Vector3 rayStart, Vector3 rayDirection, Vector3 planeNormal, float planeD)
+    public static void GetRayToPlaneIntersection(Vector3 rayStart, Vector3 rayDirection, Vector3 planeNormal, float planeD, IntersectInfo info)
     {
+        info.Intersect = false;
         float numerator = planeD - Vector3.Dot(rayStart, planeNormal);
         float denominator = Vector3.Dot(rayDirection, planeNormal);
+        //the ray is parallel to the plane
         if (denominator == 0.0f)
-            return Vector3.zero;
+            return;
 
         float t = numerator / denominator;
         Vector3 point = rayStart + t * rayDirection;
-        return point;
+
+        info.Intersect = true;
+        info.Float1 = t;
+        info.Vector1 = point;
     }
 
     /// <summary>
@@ -471,16 +523,23 @@ public class MathUtil
     /// <param name="normal2">plane normal</param>
     /// <param name="point3">point on plane</param>
     /// <param name="normal3">plane normal</param>
+    /// <param name="info">intersect info</param>
     /// <returns></returns>
-    public static Vector3 GetThreePlanesIntersection(Vector3 point1, Vector3 normal1, Vector3 point2, Vector3 normal2, Vector3 point3, Vector3 normal3)
+    public static void GetThreePlanesIntersection(Vector3 point1, Vector3 normal1, Vector3 point2, Vector3 normal2, Vector3 point3, Vector3 normal3, IntersectInfo info)
     {
+        info.Intersect = false;
         float d1 = GetPlane(point1, normal1);
         float d2 = GetPlane(point2, normal2);
         float d3 = GetPlane(point3, normal3);
         Vector3 numerator = d1 * Vector3.Cross(normal2, normal3) + d2 * Vector3.Cross(normal3, normal1) + d3 * Vector3.Cross(normal1, normal2);
         float denominator = Vector3.Dot(Vector3.Cross(normal1, normal2), normal3);
+        if (denominator == 0.0f)
+            return;
+
         Vector3 point = numerator / denominator;
-        return point;
+
+        info.Intersect = true;
+        info.Vector1 = point;
     }
 
     /// <summary>
@@ -490,18 +549,24 @@ public class MathUtil
     /// <param name="rayDirection">ray direction need normalize</param>
     /// <param name="sphereCenter">sphere center</param>
     /// <param name="sphereRadius">sphere radius</param>
+    /// <param name="info">intersect info</param>
     /// <returns></returns>
-    public static Vector3 GetRayToSphereIntersection(Vector3 rayStart, Vector3 rayDirection, Vector3 sphereCenter, float sphereRadius)
+    public static void GetRayToSphereIntersection(Vector3 rayStart, Vector3 rayDirection, Vector3 sphereCenter, float sphereRadius, IntersectInfo info)
     {
+        info.Intersect = false;
+
         Vector3 e = sphereCenter - rayStart;
         float a = Vector3.Dot(e, rayDirection);
         float f = sphereRadius * sphereRadius - e.magnitude * e.magnitude + a * a;
         if (f < 0)
-            return Vector3.zero;
+            return;
 
         float t = a - Mathf.Sqrt(f);
         Vector3 point = rayStart + t * rayDirection;
-        return point;
+
+        info.Intersect = true;
+        info.Float1 = t;
+        info.Vector1 = point;
     }
 
     /// <summary>
@@ -511,14 +576,15 @@ public class MathUtil
     /// <param name="radius1">sphere radius</param>
     /// <param name="center2">sphere center</param>
     /// <param name="radius2">sphere radius</param>
+    /// <param name="info">intersect info</param>
     /// <returns></returns>
-    public static bool GetStaticSphereIntersect(Vector3 center1, float radius1, Vector3 center2, float radius2)
+    public static void GetStaticSphereIntersect(Vector3 center1, float radius1, Vector3 center2, float radius2, IntersectInfo info)
     {
         float distance = (center2 - center1).magnitude;
         if (distance * distance < Mathf.Pow(radius1 + radius2, 2))
-            return true;
+            info.Intersect = true;
         else
-            return false;
+            info.Intersect = false;
     }
 
     /// <summary>
@@ -526,43 +592,437 @@ public class MathUtil
     /// </summary>
     /// <param name="dynamicCenter">dynamic sphere center</param>
     /// <param name="dynamicRadius">dynamic sphere radius</param>
-    /// <param name="moveDirection">move direction</param>
+    /// <param name="moveDirection">move direction need normalize</param>
     /// <param name="moveDistance">move distance</param>
     /// <param name="staticCenter">static sphere center</param>
     /// <param name="staticRadius">static sphere radius</param>
+    /// <param name="info">intersect info</param>
     /// <returns></returns>
-    public static Vector3 GetDynamicSphereIntersect(Vector3 dynamicCenter, float dynamicRadius, Vector3 moveDirection, float moveDistance, Vector3 staticCenter, float staticRadius)
+    public static void GetDynamicSphereIntersect(Vector3 dynamicCenter, float dynamicRadius, Vector3 moveDirection, Vector3 staticCenter, float staticRadius, IntersectInfo info)
     {
+        info.Intersect = false;
+
         Vector3 e = staticCenter - dynamicCenter;
         float r = dynamicRadius + staticRadius;
         Vector3 d = moveDirection;
         float radical = Mathf.Pow(Vector3.Dot(e, d), 2) - Vector3.Dot(e, e) + r * r;
         if (radical < 0)
-            return Vector3.zero;
+            return;
 
         float t = Vector3.Dot(e, d) - Mathf.Sqrt(radical);
         Vector3 point = dynamicCenter + t * moveDirection;
-        return point;
+
+        info.Intersect = true;
+        info.Float1 = t;
+        info.Vector1 = point;
     }
 
-    public static bool GetSphereToAABBIntersect(Vector3 center, float radius, AABB3 box)
+    /// <summary>
+    /// Determine whether the sphere and the bounding box intersect
+    /// </summary>
+    /// <param name="center">sphere center</param>
+    /// <param name="radius">sphere radius</param>
+    /// <param name="box">bounding box</param>
+    /// <param name="info">intersect Info</param>
+    /// <returns></returns>
+    public static void GetSphereToAABBIntersect(Vector3 center, float radius, AABB3 box, IntersectInfo info)
     {
-        Vector3 boxCenter = (box.min + box.max) / 2;
-        Vector3 boxSize = new Vector3(box.max.x - box.min.x, box.max.y - box.min.y, box.max.z - box.min.z);
-        Vector3[] points = GizmosExtension.GetCubePoints(boxCenter, boxSize);
-
-        bool xcheck = center.x > (box.min.x - radius) && center.x < (box.max.x + radius);
-        bool ycheck = center.y > (box.min.y - radius) && center.y < (box.max.y + radius);
-        bool zcheck = center.z > (box.min.z - radius) && center.z < (box.max.z + radius);
+        bool xcheck = center.x >= (box.min.x - radius) && center.x <= (box.max.x + radius);
+        bool ycheck = center.y >= (box.min.y - radius) && center.y <= (box.max.y + radius);
+        bool zcheck = center.z >= (box.min.z - radius) && center.z <= (box.max.z + radius);
         if (xcheck && ycheck && zcheck)
-            return true;
+            info.Intersect = true;
+        else
+            info.Intersect = false;
+    }
 
-        //for (int i = 0; i < points.Length; i++)
-        //{
-        //    if (Mathf.Pow((points[i] - center).magnitude, 2) <= radius * radius)
-        //        return true;
-        //}
+    /// <summary>
+    /// Determine whether a ball and a plane intersect
+    /// </summary>
+    /// <param name="planeNormal">plane normal need normalize</param>
+    /// <param name="planeD">plane parameter</param>
+    /// <param name="sphereCenter">sphere center</param>
+    /// <param name="sphereRadius">sphere radius</param>
+    /// <param name="info">intersect info</param>
+    /// <returns></returns>
+    public static void GetSphereToPlaneIntersect(Vector3 planeNormal, float planeD, Vector3 sphereCenter, float sphereRadius, IntersectInfo info)
+    {
+        float d = Vector3.Dot(sphereCenter, planeNormal) - planeD;
 
-        return false;
+        if (Mathf.Abs(d) <= sphereRadius)
+            info.Intersect = true;
+        else
+            info.Intersect = false;
+    }
+
+    /// <summary>
+    /// Determine which side of the plane the sphere is on
+    /// < 0 The sphere is under the plane
+    /// > 0 The sphere is on the plane
+    /// =0 The sphere is in plane
+    /// </summary>
+    /// <param name="planeNormal">plane normal need normalize</param>
+    /// <param name="planeD">plane parameter</param>
+    /// <param name="sphereCenter">sphere center</param>
+    /// <param name="sphereRadius">sphere radius</param>
+    /// <returns></returns>
+    public static int GetSphereToPlaneSide(Vector3 planeNormal, float planeD, Vector3 sphereCenter, float sphereRadius)
+    {
+        float d = Vector3.Dot(sphereCenter, planeNormal) - planeD;
+
+        if (d >= sphereRadius)
+            return 1;
+
+        if (d < -sphereRadius)
+            return -1;
+
+        return 0;
+    }
+
+    /// <summary>
+    /// Get the sphere and plane intersection points
+    /// </summary>
+    /// <param name="sphereCenter">sphere center</param>
+    /// <param name="sphereRadius">sphere radius</param>
+    /// <param name="sphereDirection">sphere move direction need normalize</param>
+    /// <param name="planePoint">point on plane</param>
+    /// <param name="planeNormal">plane normal need normalize</param>
+    /// <param name="info">intersect info</param>
+    /// <returns></returns>
+    public static void GetDynamicSphereToPlane(Vector3 sphereCenter, float sphereRadius, Vector3 sphereDirection, Vector3 planePoint, Vector3 planeNormal, IntersectInfo info)
+    {
+        info.Intersect = false;
+
+        float planeD = GetPlane(planePoint, planeNormal);
+        float numerator = planeD - Vector3.Dot((sphereCenter - sphereRadius * planeNormal), planeNormal);
+        float denominator = Vector3.Dot(sphereDirection, planeNormal);
+        if (denominator == 0.0f)
+            return;
+
+        float t = numerator / denominator;
+        Vector3 point = sphereCenter + t * sphereDirection;
+
+        info.Intersect = true;
+        info.Float1 = t;
+        info.Vector1 = point;
+    }
+
+    /// <summary>
+    /// Determine that the ray intersects the triangle
+    /// </summary>
+    /// <param name="rayStart">ray start</param>
+    /// <param name="rayDirection">ray direction need normalize</param>
+    /// <param name="trianglePoint0">triangle point</param>
+    /// <param name="trianglePoint1">triangle point</param>
+    /// <param name="trianglePoint2">triangle point</param>
+    /// <param name="info">intersect info</param>
+    /// <returns></returns>
+    public static void GetRayToTriangleIntersection(Vector3 rayStart, Vector3 rayDirection, Vector3 trianglePoint0, Vector3 trianglePoint1, Vector3 trianglePoint2, IntersectInfo info)
+    {
+        info.Intersect = false;
+        Vector3 e1 = trianglePoint1 - trianglePoint0;
+        Vector3 e2 = trianglePoint2 - trianglePoint1;
+
+        Vector3 n = Vector3.Cross(e1, e2);
+
+        float dot = Vector3.Dot(n, rayDirection);
+        if (dot >= 0.0f)
+            return ;
+
+        //obtaining plane parameters
+        float d = Vector3.Dot(n, trianglePoint0);
+
+        //get the t value at the intersection of the plane
+        float t = d - Vector3.Dot(n, rayStart);
+
+        //ray origin on the backside of the ploygon
+        if (t > 0.0f)
+            return ;
+
+        t = t / dot;
+
+        Vector3 point = rayStart + t * rayDirection;
+
+        Vector3 barycentric = GetBarycentric3D(trianglePoint0, trianglePoint1, trianglePoint2, point);
+        if (barycentric.x < 0 || barycentric.y < 0 || barycentric.z < 0)
+            return;
+
+        info.Intersect = true;
+        info.Float1 = t;
+        info.Vector1 = point;
+    }
+
+    /// <summary>
+    /// Get the intersection of the ray and the cube
+    /// </summary>
+    /// <param name="rayStart">ray start</param>
+    /// <param name="rayDelta">ray direction and length</param>
+    /// <param name="box">cube</param>
+    /// <param name="info">result info</param>
+    public static void GetRayToAABBIntersection(Vector3 rayStart, Vector3 rayDelta, AABB3 box, IntersectInfo info)
+    {
+        info.Intersect = false;
+
+        bool inside = true;
+        float xt = 0;
+        float xn = 0;
+        if (rayStart.x < box.min.x)
+        {
+            xt = box.min.x - rayStart.x;
+            if (xt > rayDelta.x)
+                return;
+            xt = xt / rayDelta.x;
+            inside = false;
+            xn = -1.0f;
+        }
+        else if (rayStart.x > box.max.x)
+        {
+            xt = box.max.x - rayStart.x;
+            if (xt < rayDelta.x)
+                return;
+            xt = xt / rayDelta.x;
+            inside = false;
+            xn = 1.0f;
+        }
+        else
+        {
+            xt = -1.0f;
+        }
+
+        float yt = 0;
+        float yn = 0;
+        if (rayStart.y < box.min.y)
+        {
+            yt = box.min.y - rayStart.y;
+            if (yt > rayDelta.y)
+                return;
+            yt = yt / rayDelta.y;
+            inside = false;
+            yn = -1.0f;
+        }
+        else if (rayStart.y > box.max.y)
+        {
+            yt = box.max.y - rayStart.y;
+            if (yt < rayDelta.y)
+                return;
+            yt = yt / rayDelta.y;
+            inside = false;
+            yn = 1.0f;
+        }
+        else
+        {
+            yt = -1.0f;
+        }
+
+        float zt = 0;
+        float zn = 0;
+        if (rayStart.z < box.min.z)
+        {
+            zt = box.min.z - rayStart.z;
+            if (zt > rayDelta.z)
+                return;
+            zt = zt / rayDelta.z;
+            inside = false;
+            zn = -1.0f;
+        }
+        else if (rayStart.z > box.max.z)
+        {
+            zt = box.max.z - rayStart.z;
+            if (zt < rayDelta.z)
+                return;
+            zt = zt / rayDelta.z;
+            inside = false;
+            zn = 1.0f;
+        }
+        else
+        {
+            zt = -1.0f;
+        }
+
+        if (inside)
+        {
+            return;
+        }
+
+        int which = 0;
+        float t = xt;
+        if (yt > t)
+        {
+            which = 1;
+            t = yt;
+        }
+
+        if (zt > t)
+        {
+            which = 2;
+            t = zt;
+        }
+
+        float x, y, z;
+        switch (which)
+        {
+            case 0:
+                //it intersects the yz plane
+                y = rayStart.y + t * rayDelta.y;
+                if (y < box.min.y || y > box.max.y)
+                    return;
+                z = rayStart.z + t * rayDelta.z;
+                if (z < box.min.z || z > box.max.z)
+                    return;
+                break;
+            case 1:
+                //it intersects the xz plane
+                x = rayStart.x + t * rayDelta.x;
+                if (x < box.min.x || x > box.max.x)
+                    return;
+                z = rayStart.z + t * rayDelta.z;
+                if (z < box.min.z || z > box.max.z)
+                    return;
+                break;
+            case 2:
+                //it intersects the xy plane
+                x = rayStart.x + t * rayDelta.x;
+                if (x < box.min.x || x > box.max.x)
+                    return;
+                y = rayStart.y + t * rayDelta.y;
+                if (y < box.min.y || y > box.max.y)
+                    return;
+                break;
+            default:
+                break;
+        }
+
+        info.Intersect = true;
+        info.Float1 = t;
+        info.Vector1 = rayStart + t * rayDelta;
+    }
+
+    /// <summary>
+    /// Gets the intersection of two bounding boxes
+    /// </summary>
+    /// <param name="box1"></param>
+    /// <param name="box2"></param>
+    /// <param name="info"></param>
+    public static void GetStaticAABBIntersection(AABB3 box1, AABB3 box2, IntersectInfo info)
+    {
+        info.Intersect = false;
+        if (box1.min.x > box2.max.x)
+            return;
+        if (box1.max.x < box2.min.x)
+            return;
+        if (box1.min.y > box2.max.y)
+            return;
+        if (box1.max.y < box2.min.y)
+            return;
+        if (box1.min.z > box2.max.z)
+            return;
+        if (box1.max.z < box2.min.z)
+            return;
+
+        info.Intersect = true;
+        info.Vector1 = new Vector3(Mathf.Max(box1.min.x, box2.min.x), Mathf.Max(box1.min.y, box2.min.y), Mathf.Max(box1.min.z, box2.min.z));
+        info.Vector2 = new Vector3(Mathf.Min(box1.max.x, box2.max.x), Mathf.Min(box1.max.y, box2.max.y), Mathf.Min(box1.max.z, box2.max.z));
+    }
+
+    /// <summary>
+    /// Gets the time when the enclosing boxes intersect
+    /// </summary>
+    /// <param name="stationaryBox">stationary box</param>
+    /// <param name="movingBox">moving box</param>
+    /// <param name="direction">move direction</param>
+    /// <param name="info">intersect info</param>
+    public static void GetDynamicAABBIntersection(AABB3 stationaryBox, AABB3 movingBox, Vector3 direction, IntersectInfo info)
+    {
+        info.Intersect = false;
+
+        float tEnter = 0.0f;
+        float tLeave = 1.0f;
+
+        //check x axis
+        if (direction.x == 0.0f)
+        {
+            if (stationaryBox.min.x >= movingBox.max.x || stationaryBox.max.x <= movingBox.min.x)
+                return;
+        }
+        else
+        {
+            float oneOverD = 1.0f / direction.x;
+            float xEnter = (stationaryBox.min.x - movingBox.max.x) * oneOverD;
+            float xLeave = (stationaryBox.max.x - movingBox.min.x) * oneOverD;
+
+            if (xEnter > xLeave)
+                Swap(ref xEnter, ref xLeave);
+
+            if (xEnter > tEnter)
+                tEnter = xEnter;
+            if (xLeave < tLeave)
+                tLeave = xLeave;
+
+            //overlap is empty
+            if (tEnter > tLeave)
+                return;
+        }
+
+        //check y axis
+        if (direction.y == 0.0f)
+        {
+            if (stationaryBox.min.y >= movingBox.max.y || stationaryBox.max.y <= movingBox.min.y)
+                return;
+        }
+        else
+        {
+            float oneOverD = 1.0f / direction.y;
+
+            float yEnter = (stationaryBox.min.y - movingBox.max.y) * oneOverD;
+            float yLeave = (stationaryBox.max.y - movingBox.min.y) * oneOverD;
+
+            if (yEnter > yLeave)
+                Swap(ref yEnter, ref yLeave);
+
+            if (yEnter > tEnter)
+                tEnter = yEnter;
+            if (yLeave < tLeave)
+                tLeave = yLeave;
+
+            if (tEnter > tLeave)
+                return;
+        }
+
+        //check z axis
+        if (direction.z == 0.0f)
+        {
+            if (stationaryBox.min.z >= movingBox.max.z || stationaryBox.max.z <= movingBox.min.z)
+                return;
+        }
+        else
+        {
+            float oneOverD = 1.0f / direction.z;
+
+            float zEnter = (stationaryBox.min.z - movingBox.max.z) * oneOverD;
+            float zLeave = (stationaryBox.max.z - movingBox.min.z) * oneOverD;
+
+            if (zEnter > zLeave)
+                Swap(ref zEnter, ref zLeave);
+
+            if (zEnter > tEnter)
+                tEnter = zEnter;
+            if (zLeave < tLeave)
+                tLeave = zLeave;
+
+            if (tEnter > tLeave)
+                return;
+        }
+
+        info.Intersect = true;
+        info.Float1 = tEnter;
+        info.Vector1 = movingBox.min + tEnter * direction;
+        info.Vector2 = movingBox.max + tEnter * direction;
+    }
+
+    public static void Swap(ref float a, ref float b)
+    {
+        float temp = a;
+        a = b;
+        b = temp;
     }
 }
