@@ -2,14 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RuleOfParallelogram : MonoBehaviour
+public class VectorDistance : MonoBehaviour
 {
     public Vector3 P1;
 
     public Vector3 P2;
 
-    public Vector3 P3;
-
+    public float F;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,21 +23,18 @@ public class RuleOfParallelogram : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        P3 = P1 + P2;
-
         GizmosExtension.DrawLHCoordinate(Vector3.zero);
 
         Gizmos.color = Color.green;
-        GizmosExtension.DrawLineWithArrow(Vector3.zero, P1);
+        Gizmos.DrawSphere(P1, 0.1f);
 
         Gizmos.color = Color.red;
-        GizmosExtension.DrawLineWithArrow(Vector3.zero, P2);
+        Gizmos.DrawSphere(P2, 0.1f);
 
         Gizmos.color = Color.white;
-        Gizmos.DrawLine(P1, P3);
-        Gizmos.DrawLine(P2, P3);
+        Gizmos.DrawLine(P1,P2);
 
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(Vector3.zero, P3);
+        Vector3 d = P2 - P1;
+        F = Mathf.Sqrt(d.x * d.x + d.y * d.y + d.z * d.z);
     }
 }

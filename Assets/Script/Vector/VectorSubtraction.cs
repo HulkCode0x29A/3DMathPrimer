@@ -35,7 +35,8 @@ public class VectorSubtraction : MonoBehaviour
         Gizmos.DrawSphere(P2, 0.1f);
 
         GizmosExtension.DrawLineWithArrow(P2, P1);
-       
-        
+
+        Gizmos.color = Color.red;
+        GizmosExtension.DrawLineWithArrow(Vector3.zero, P3);
     }
 }

@@ -26,6 +26,7 @@ public class VectorProjection : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        N = new Vector3(1, 0, 0);
         Gizmos.color = Color.green;
         Gizmos.DrawSphere(V, 0.1f);
 

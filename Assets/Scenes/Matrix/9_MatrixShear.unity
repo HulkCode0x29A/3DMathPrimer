@@ -330,7 +330,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Center: {x: 0.5, y: 0.5, z: 0.5}
   Size: {x: 0.5, y: 0.5, z: 0.5}
-  Shear: 2
+  Shear: 0
   S: 1
   T: 1
 --- !u!4 &1886354637

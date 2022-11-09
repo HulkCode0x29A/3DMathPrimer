@@ -60,7 +60,6 @@
     <Compile Include="Assets\Script\Tool\GizmosExtension.cs" />
     <Compile Include="Assets\Script\Test.cs" />
     <Compile Include="Assets\Script\GeometricPrimitive\BarycentricCoordinates3D.cs" />
-    <Compile Include="Assets\Script\GeometricPrimitive\PlaneToPoint.cs" />
     <Compile Include="Assets\Script\Matrix\MatrixGramSchmidt.cs" />
     <Compile Include="Assets\Script\GeometryCheck\RayToPlane.cs" />
     <Compile Include="Assets\Script\Vector\VectorInterpolation.cs" />
@@ -78,6 +77,8 @@
     <Compile Include="Assets\Script\Matrix\MatrixTranslation.cs" />
     <Compile Include="Assets\Script\Matrix\MatrixOperation.cs" />
     <Compile Include="Assets\Script\GeometryCheck\PointToParameterRay.cs" />
+    <Compile Include="Assets\Script\GeometryCheck\DynamicAABBIntersection.cs" />
+    <Compile Include="Assets\Script\GeometryCheck\StaticAABBIntersection.cs" />
     <Compile Include="Assets\Script\GeometricPrimitive\RayEquation.cs" />
     <Compile Include="Assets\Script\Tool\MatrixUtil.cs" />
     <Compile Include="Assets\Script\GeometryCheck\PointToSphere.cs" />
@@ -111,8 +112,7 @@
     <Compile Include="Assets\Script\GeometricPrimitive\LineEquation.cs" />
     <Compile Include="Assets\Script\Vector\RuleOfTriangles.cs" />
     <Compile Include="Assets\Script\GeometricPrimitive\PlaneEquation.cs" />
-    <Compile Include="Assets\Script\GeometryCheck\StaticAABBIntersection.cs" />
-    <Compile Include="Assets\Script\GeometryCheck\DynamicAABBIntersection.cs" />
+    <Compile Include="Assets\Script\Vector\VectorDistance.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

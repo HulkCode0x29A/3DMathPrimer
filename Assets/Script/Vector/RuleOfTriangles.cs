@@ -28,12 +28,12 @@ public class RuleOfTriangles : MonoBehaviour
         GizmosExtension.DrawLHCoordinate(Vector3.zero);
 
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(Vector3.zero, P1);
+        GizmosExtension.DrawLineWithArrow(Vector3.zero, P1);
 
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(P1, P3);
+        GizmosExtension.DrawLineWithArrow(P1, P3);
 
-        Gizmos.color = Color.yellow;
+        Gizmos.color = Color.white;
         Gizmos.DrawLine(Vector3.zero, P3);
 
    

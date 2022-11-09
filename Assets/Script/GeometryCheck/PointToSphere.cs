@@ -10,7 +10,7 @@ public class PointToSphere : MonoBehaviour
 
     public GameObject Obj;
 
-    private IntersectInfo info;
+    private IntersectInfo info = new IntersectInfo();
     // Start is called before the first frame update
     void Start()
     {

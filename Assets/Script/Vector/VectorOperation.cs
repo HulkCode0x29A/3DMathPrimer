@@ -81,13 +81,13 @@ public class VectorOperation : MonoBehaviour
     {
         GizmosExtension.DrawLHCoordinate(Vector3.zero);
 
-        Vector3 vector = new Vector3(1,1,0);
+        VectorValue2 = -VectorValue1;
 
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(Vector3.zero, vector);
+        Gizmos.DrawLine(Vector3.zero, VectorValue1);
 
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(Vector3.zero, -vector);
+        Gizmos.DrawLine(Vector3.zero, VectorValue2);
         
     }
 
@@ -95,53 +95,41 @@ public class VectorOperation : MonoBehaviour
     {
         GizmosExtension.DrawLHCoordinate(Vector3.zero);
 
-        Vector3 vector = new Vector3(3, 4, 0);
-
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(Vector3.zero, vector);
+        Gizmos.DrawLine(Vector3.zero, VectorValue1);
 
-        FloatValue1 = vector.magnitude;
+        FloatValue1 = VectorValue1.magnitude;
         //Vector3.Magnitude(vector);
     }
 
     private void ScalarVector()
     {
         GizmosExtension.DrawLHCoordinate(Vector3.zero);
-        
-        Vector3 vector = new Vector3(1, 1, 0);
 
-        float scalar = 2f;
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(Vector3.zero, vector * scalar) ;
+        VectorValue2 = VectorValue1 * FloatValue1;
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(Vector3.zero, VectorValue2);
 
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(Vector3.zero, vector);
-
-        scalar = -1.5f;
-        Gizmos.color = Color.blue;
-        Gizmos.DrawLine(Vector3.zero, vector * scalar);
-
+        Gizmos.DrawLine(Vector3.zero, VectorValue1);
     }
 
     private void NormalizedVector()
     {
         GizmosExtension.DrawLHCoordinate(Vector3.zero);
 
-        Vector3 vector = new Vector3(3, 4, 0);
-        
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(Vector3.zero, vector);
+        VectorValue2 = VectorValue1.normalized;
 
-        Vector3 nVector = vector.normalized;
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(Vector3.zero, nVector);
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(Vector3.zero, VectorValue1);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(Vector3.zero, VectorValue2);
     }
 
     private void TwoPointsDistance()
     {
-        VectorValue1 = new Vector3(1,1,0);
-        VectorValue2 = new Vector3(4,7,0);
-
         //p1-p2 or p2-p1 are same result for distance
         GizmosExtension.DrawLHCoordinate(Vector3.zero);
 
@@ -151,9 +139,11 @@ public class VectorOperation : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawSphere(VectorValue2, 0.1f);
 
+        Gizmos.color = Color.white;
+        Gizmos.DrawLine(VectorValue1, VectorValue2);
+
         Vector3 minusVector = VectorValue1 - VectorValue2;
         FloatValue1 = minusVector.magnitude;
-
     }
 
   

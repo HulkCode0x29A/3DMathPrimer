@@ -8,7 +8,7 @@ public class VectorDotProduct : MonoBehaviour
 
     public Vector3 VectorValue2;
 
-    public float FloatValue1;
+    public string StringValue1;
 
     [Range(0, 360)]
     public float SliderValueCircle;
@@ -37,12 +37,13 @@ public class VectorDotProduct : MonoBehaviour
 
         GizmosExtension.DrawLHCoordinate(Vector3.zero);
 
-        Gizmos.color = Color.green;
+        Gizmos.color = Color.cyan;
         Gizmos.DrawLine(Vector3.zero, VectorValue1);
 
         Gizmos.color = Color.red;
         Gizmos.DrawLine(Vector3.zero, VectorValue2);
 
-        FloatValue1 = Vector3.Dot(VectorValue1, VectorValue2);
+        float value = Vector3.Dot(VectorValue1, VectorValue2);
+        StringValue1 = value.ToString("0.000");
     }
 }

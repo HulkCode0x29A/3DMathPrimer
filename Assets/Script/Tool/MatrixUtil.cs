@@ -42,13 +42,13 @@ public class MatrixUtil
         Matrix4x4 matrix = Matrix4x4.identity;
         float radian = Mathf.Deg2Rad * theta;
         matrix[0, 0] = n.x * n.x * (1 - Mathf.Cos(radian)) + Mathf.Cos(radian);
-        matrix[0, 1] = n.x * n.y * (1 - Mathf.Cos(radian)) + n.z * Mathf.Sin(radian);
-        matrix[0, 2] = n.x * n.z * (1 - Mathf.Cos(radian)) - n.y * Mathf.Sin(radian);
-        matrix[1, 0] = n.x * n.y * (1 - Mathf.Cos(radian)) - n.z * Mathf.Sin(radian);
+        matrix[0, 1] = n.x * n.y * (1 - Mathf.Cos(radian)) - n.z * Mathf.Sin(radian);
+        matrix[0, 2] = n.x * n.z * (1 - Mathf.Cos(radian)) + n.y * Mathf.Sin(radian);
+        matrix[1, 0] = n.x * n.y * (1 - Mathf.Cos(radian)) + n.z * Mathf.Sin(radian);
         matrix[1, 1] = n.y * n.y * (1 - Mathf.Cos(radian)) + Mathf.Cos(radian);
-        matrix[1, 2] = n.y * n.z * (1 - Mathf.Cos(radian)) + n.x * Mathf.Sin(radian);
-        matrix[2, 0] = n.x * n.z * (1 - Mathf.Cos(radian)) + n.y * Mathf.Sin(radian);
-        matrix[2, 1] = n.y * n.z * (1 - Mathf.Cos(radian)) - n.x * Mathf.Sin(radian);
+        matrix[1, 2] = n.y * n.z * (1 - Mathf.Cos(radian)) - n.x * Mathf.Sin(radian);
+        matrix[2, 0] = n.x * n.z * (1 - Mathf.Cos(radian)) - n.y * Mathf.Sin(radian);
+        matrix[2, 1] = n.y * n.z * (1 - Mathf.Cos(radian)) + n.x * Mathf.Sin(radian);
         matrix[2, 2] = n.z * n.z * (1 - Mathf.Cos(radian)) + Mathf.Cos(radian);
         return matrix;
     }

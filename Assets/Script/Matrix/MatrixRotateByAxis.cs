@@ -31,11 +31,13 @@ public class MatrixRotateByAxis : MonoBehaviour
 
         Gizmos.color = Color.black;
         Gizmos.DrawLine(Vector3.zero, P1);
+        Gizmos.DrawSphere(P1, 0.1f);
 
         Gizmos.color = Color.white;
         Matrix4x4 matrix = MatrixUtil.GetRotateByAxisMatrix(Axis.normalized, Angle);
         P2 = matrix.MultiplyPoint(P1);
         Gizmos.DrawLine(Vector3.zero, P2);
+        Gizmos.DrawSphere(P2, 0.1f);
 
     }
 }
