@@ -61,6 +61,7 @@
     <Compile Include="Assets\Script\Test.cs" />
     <Compile Include="Assets\Script\GeometricPrimitive\BarycentricCoordinates3D.cs" />
     <Compile Include="Assets\Script\Matrix\MatrixGramSchmidt.cs" />
+    <Compile Include="Assets\Script\Matrix\MatrixRotateXYZ.cs" />
     <Compile Include="Assets\Script\GeometryCheck\RayToPlane.cs" />
     <Compile Include="Assets\Script\Vector\VectorInterpolation.cs" />
     <Compile Include="Assets\Script\Matrix\MatrixShear.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Assets\Script\GeometryCheck\StaticAABBIntersection.cs" />
     <Compile Include="Assets\Script\GeometricPrimitive\RayEquation.cs" />
     <Compile Include="Assets\Script\Tool\MatrixUtil.cs" />
+    <Compile Include="Assets\Script\Orientation\QuaternionOperation.cs" />
     <Compile Include="Assets\Script\GeometryCheck\PointToSphere.cs" />
     <Compile Include="Assets\Script\Matrix\MatrixCompose.cs" />
     <Compile Include="Assets\Script\Matrix\MatrixAffine.cs" />
@@ -110,9 +112,12 @@
     <Compile Include="Assets\Script\GeometricPrimitive\BasicsTriangle.cs" />
     <Compile Include="Assets\Script\GeometryCheck\RayToAABB.cs" />
     <Compile Include="Assets\Script\GeometricPrimitive\LineEquation.cs" />
+    <Compile Include="Assets\Script\Vector\VectorDistance.cs" />
     <Compile Include="Assets\Script\Vector\RuleOfTriangles.cs" />
     <Compile Include="Assets\Script\GeometricPrimitive\PlaneEquation.cs" />
-    <Compile Include="Assets\Script\Vector\VectorDistance.cs" />
+    <Compile Include="Assets\Script\Matrix\MatrixRotateYXZ.cs" />
+    <Compile Include="Assets\Script\Tool\Quaternion.cs" />
+    <Compile Include="Assets\Script\Orientation\QuaternionTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

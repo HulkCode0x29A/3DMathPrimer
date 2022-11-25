@@ -31,6 +31,9 @@ public class EulerAngleLerp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (null == Model)
+            return;
+
         float theta;
 
         float angle;

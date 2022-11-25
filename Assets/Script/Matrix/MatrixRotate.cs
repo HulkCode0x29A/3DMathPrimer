@@ -54,6 +54,6 @@ public class MatrixRotate : MonoBehaviour
         P2 = rotateMatrix.MultiplyPoint(P1);
 
         Gizmos.color = Color.white;
-        Gizmos.DrawLine(Vector3.zero, P2);
+        GizmosExtension.DrawLineWithSphere(Vector3.zero, P2,0.1f);
     }
 }

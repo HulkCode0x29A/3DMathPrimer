@@ -152,10 +152,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 684f9e50675d9e2429cc1b6b3e254723, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Axis: 0
+  Axis: 2
   P1: {x: 1, y: 1, z: 0}
-  P2: {x: -1.1159334, y: 0.8687305, z: 0}
-  Angle: 97.1
+  P2: {x: 0.69088244, y: 1, z: -0.72296715}
+  Angle: 46.3
 --- !u!4 &144040201
 Transform:
   m_ObjectHideFlags: 0
