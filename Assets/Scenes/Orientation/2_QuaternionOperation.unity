@@ -423,7 +423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1e3415942782b5448af41509d3a2636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Operation: 9
+  Operation: 3
   Cube: {fileID: 1613449853}
   Point1: {fileID: 1509914161}
   Point2: {fileID: 790129706}
