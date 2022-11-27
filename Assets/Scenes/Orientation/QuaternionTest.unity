@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Test: 13
-  Quaternion1: {x: 1, y: 2, z: 3, w: 1}
+  Quaternion1: {x: 1, y: 3, z: 2, w: 6}
   Quaternion2: {x: -2, y: 5, z: -6, w: 1}
   P1: {x: 0, y: 1, z: 1}
   P2: {x: 0.99999994, y: 1, z: 0.000000034228542}

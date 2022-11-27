@@ -216,6 +216,40 @@ namespace Finch
         }
 
         /// <summary>
+        /// Obtain Euler Angle represented by quaternion
+        /// </summary>
+        /// <returns></returns>
+        public static Vector3 ToEulerAngles(Quaternion q)
+        {
+            //https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles#Quaternion_to_Euler_angles_conversion
+
+
+            float sinRcosP = 2 * (q.w * q.x + q.y * q.z);
+            float cosRcosP = 1 - 2 * (q.x * q.x + q.y * q.y);
+            float x = Mathf.Atan2(sinRcosP, cosRcosP);
+
+            float sinp = 2 * (q.w * q.y - q.z * q.x);
+            float y = 0;
+            if (Mathf.Abs(sinp) >= 1)
+                y = Mathf.PI / 2 * Mathf.Sign(sinp);// use 90 degrees if out of range
+            else
+                y = Mathf.Asin(sinp);
+
+            float sinYcosP = 2 * (q.w * q.z + q.x * q.y);
+            float cosYcosP = 1 - 2 * (q.y * q.y + q.z * q.z);
+            float z = Mathf.Atan2(sinYcosP, cosYcosP);
+            return new Vector3(x * Mathf.Rad2Deg, y * Mathf.Rad2Deg, z * Mathf.Rad2Deg);
+        }
+
+        public Vector3 eulerAngles
+        {
+            get
+            {
+                return ToEulerAngles(this);
+            }
+        }
+
+        /// <summary>
         /// Get the Angle between the two quaternions
         /// </summary>
         /// <param name="q1"></param>
@@ -230,7 +264,44 @@ namespace Finch
             return angle;
         }
 
+        /// <summary>
+        /// Returns the quaternion rotated according to the xyz axis
+        /// </summary>
+        /// <param name="rotatex"></param>
+        /// <param name="rotatey"></param>
+        /// <param name="rotatez"></param>
+        /// <returns></returns>
+        public static Quaternion Euler(float rotatex, float rotatey, float rotatez)
+        {
+            //formula(10.25)
+            float h = rotatey * 0.5f * Mathf.Deg2Rad;
+            float p = rotatex * 0.5f * Mathf.Deg2Rad;
+            float b = rotatez * 0.5f * Mathf.Deg2Rad;
+            float w = Mathf.Cos(h) * Mathf.Cos(p) * Mathf.Cos(b) + Mathf.Sin(h) * Mathf.Sin(p) * Mathf.Sin(b);
+            float x = Mathf.Cos(h) * Mathf.Sin(p) * Mathf.Cos(b) - Mathf.Sin(h) * Mathf.Cos(p) * Mathf.Sin(b);
+            float y = Mathf.Sin(h) * Mathf.Cos(p) * Mathf.Cos(b) + Mathf.Cos(h) * Mathf.Sin(p) * Mathf.Sin(b);
+            float z = Mathf.Cos(h) * Mathf.Cos(p) * Mathf.Sin(b) - Mathf.Sin(h) * Mathf.Sin(p) * Mathf.Cos(b);
+            return new Quaternion(x, y, z, w);
+        }
 
+        /// <summary>
+        /// Returns the quaternion rotated according to the xyz axis
+        /// </summary>
+        /// <param name="rotatex"></param>
+        /// <param name="rotatey"></param>
+        /// <param name="rotatez"></param>
+        /// <returns></returns>
+        public static Quaternion Euler2(float rotatex, float rotatey, float rotatez)
+        {
+            float xRadian = rotatex * 0.5f * Mathf.Deg2Rad;
+            float yRadian = rotatey * 0.5f * Mathf.Deg2Rad;
+            float zRadian = rotatez * 0.5f * Mathf.Deg2Rad;
+            Quaternion qx = new Quaternion(Mathf.Sin(xRadian), 0, 0, Mathf.Cos(xRadian));
+            Quaternion qy = new Quaternion(0, Mathf.Sin(yRadian), 0, Mathf.Cos(yRadian));
+            Quaternion qz = new Quaternion(0, 0, Mathf.Sin(zRadian), Mathf.Cos(zRadian));
+
+            return qz * qy * qx;
+        }
 
         /// <summary>
         /// Quaternion spherical interpolation
@@ -419,7 +490,7 @@ namespace Finch
                     break;
             }
 
-            return new Quaternion(x,y,z,w);
+            return new Quaternion(x, y, z, w);
         }
 
         public Matrix4x4 rotationMatrix

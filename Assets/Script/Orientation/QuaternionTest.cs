@@ -17,8 +17,10 @@ public enum QuaternionTestEnum
     Rotation,
     MultipleRotations,
     Angle,
+    Euler,
     Slerp,
     MatrixToQuaternion,
+    QuaternionToEulerAngle,
 }
 public class QuaternionTest : MonoBehaviour
 {
@@ -105,7 +107,11 @@ public class QuaternionTest : MonoBehaviour
                 result = Quaternion.GetQuaternion(matrix);
                 Debug.Log("MatrixToQuaternion:" + result);
                 break;
-
+            case QuaternionTestEnum.QuaternionToEulerAngle:
+                //q1 = Quaternion.Euler(InputAxis1.x, InputAxis1.y, InputAxis1.z);
+                q1 = new Quaternion(Quaternion1);
+                Debug.Log("EulerAngle:" + q1.eulerAngles);
+                break;
 
         }
     }
@@ -149,6 +155,9 @@ public class QuaternionTest : MonoBehaviour
             case QuaternionTestEnum.Angle:
                 QuaternionAngle();
                 break;
+            case QuaternionTestEnum.Euler:
+                QuaternionEuler();
+                break;
             case QuaternionTestEnum.Slerp:
                 QuaternionSlerp();
                 break;
@@ -178,6 +187,37 @@ public class QuaternionTest : MonoBehaviour
         Gizmos.color = Color.cyan;
         Gizmos.DrawLine(Vector3.zero, P2);
         Gizmos.DrawSphere(P2, 0.1f);
+    }
+
+    private void QuaternionEuler()
+    {
+        GizmosExtension.DrawLHCoordinate(Vector3.zero);
+        Quaternion q = Quaternion.Euler(InputAxis1.x, InputAxis1.y, InputAxis1.z);
+        // Quaternion q = Quaternion.Euler2(InputAxis1.x, InputAxis1.y, InputAxis1.z);
+
+        Vector3 t1 = q * P1;
+        Vector3 t2 = q * P2;
+        Vector3 t3 = q * P3;
+
+        Gizmos.color = Color.cyan;
+        GizmosExtension.DrawWireTriangle(t1, t2, t3);
+        Gizmos.DrawSphere(t1, 0.1f);
+        Gizmos.DrawSphere(t2, 0.1f);
+        Gizmos.DrawSphere(t3, 0.1f);
+
+        //Matrix4x4 xMatrix = MatrixUtil.GetRotateXMatrix(InputAxis1.x);
+        //Matrix4x4 yMatrix = MatrixUtil.GetRotateYMatrix(InputAxis1.y);
+        //Matrix4x4 zMatrix = MatrixUtil.GetRotateZMatrix(InputAxis1.z);
+        //Matrix4x4 rotateMatrix = zMatrix * yMatrix * xMatrix;
+        //Vector3 m1 = rotateMatrix * P1;
+        //Vector3 m2 = rotateMatrix * P2;
+        //Vector3 m3 = rotateMatrix * P3;
+
+        //Gizmos.color = Color.red;
+        //GizmosExtension.DrawWireTriangle(m1, m2, m3);
+        //Gizmos.DrawSphere(m1, 0.1f);
+        //Gizmos.DrawSphere(m2, 0.1f);
+        //Gizmos.DrawSphere(m3, 0.1f);
     }
 
     private void QuaternionAngle()
