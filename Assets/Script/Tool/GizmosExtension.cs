@@ -279,7 +279,7 @@ public class GizmosExtension
             Gizmos.color = nomralColor;
             Gizmos.DrawLine(Vector3.zero, n);
         }
-        
+
         //Gizmos.color = Color.blue;
         //Gizmos.DrawLine(Vector3.zero, v3);
 

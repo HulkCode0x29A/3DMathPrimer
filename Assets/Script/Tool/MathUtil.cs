@@ -85,7 +85,7 @@ public class MathUtil
     /// Gets the plane implicit definition parameter
     /// </summary>
     /// <param name="planePoint">point on plane</param>
-    /// <param name="planeNormal">plane  normal</param>
+    /// <param name="planeNormal">plane  normal need normalize</param>
     /// <returns></returns>
     public static float GetPlane(Vector3 planePoint, Vector3 planeNormal)
     {
@@ -497,13 +497,17 @@ public class MathUtil
     /// <param name="planeD">plane implicit parameter</param>
     /// <param name="info">intersect info</param>
     /// <returns></returns>
-    public static void GetRayToPlaneIntersection(Vector3 rayStart, Vector3 rayDirection, Vector3 planeNormal, float planeD, IntersectInfo info)
+    public static void GetRayToPlaneIntersection(Vector3 rayStart, Vector3 rayDirection, Vector3 planeNormal, float planeD, bool reverseIntersect ,IntersectInfo info)
     {
         info.Intersect = false;
         float numerator = planeD - Vector3.Dot(rayStart, planeNormal);
         float denominator = Vector3.Dot(rayDirection, planeNormal);
         //the ray is parallel to the plane
         if (denominator == 0.0f)
+            return;
+
+        //check allow reverse intersect 
+        if (!reverseIntersect && denominator > 0)
             return;
 
         float t = numerator / denominator;

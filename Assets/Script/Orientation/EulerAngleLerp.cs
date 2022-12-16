@@ -6,6 +6,7 @@ public enum AngleLerpEnum
 {
     SingleLerp,
     WrapLerp,
+    LerpAngle,
 }
 
 
@@ -19,13 +20,13 @@ public class EulerAngleLerp : MonoBehaviour
 
     public int EndAngle;
 
-    [Range(0,1)]
+    [Range(0, 1)]
     public float T;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -34,26 +35,48 @@ public class EulerAngleLerp : MonoBehaviour
         if (null == Model)
             return;
 
-        float theta;
 
-        float angle;
         switch (Lerp)
         {
             case AngleLerpEnum.SingleLerp:
-                theta = EndAngle - StartAngle;
-                angle = StartAngle + T * theta;
-                Model.transform.localEulerAngles = new Vector3(0, angle, 0);
+                SingleLerp();
                 break;
             case AngleLerpEnum.WrapLerp:
-                theta = EndAngle - StartAngle;
+                float theta = EndAngle - StartAngle;
                 float delta = (theta - 360) * ((theta + 180) / 360);
-                angle = StartAngle + T * delta;
+                float angle = StartAngle + T * delta;
                 Model.transform.localEulerAngles = new Vector3(0, angle, 0);
+                break;
+            case AngleLerpEnum.LerpAngle:
+                //float lerpAngle = Mathf.LerpAngle(StartAngle, EndAngle,T);
+                float lerpAngle = LerpAngle(StartAngle, EndAngle, T);
+                Model.transform.localEulerAngles = new Vector3(0, lerpAngle, 0);
                 break;
             default:
                 break;
         }
 
-        
+
+    }
+
+    public float LerpAngle(float a, float b, float t)
+    {
+        float delta = Repeat((b - a), 360);
+        if (delta > 180)
+            delta -= 360;
+
+        return a + delta * Mathf.Clamp01(t);
+    }
+
+    public float Repeat(float t, float length)
+    {
+        return Mathf.Clamp(t - Mathf.Floor(t / length) * length, 0.0f, length);
+    }
+
+    private void SingleLerp()
+    {
+        float theta = EndAngle - StartAngle;
+        float angle = StartAngle + T * theta;
+        Model.transform.localEulerAngles = new Vector3(0, angle, 0);
     }
 }

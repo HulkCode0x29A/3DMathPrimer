@@ -55,7 +55,7 @@ public class LineEquation : MonoBehaviour
         Gizmos.DrawLine(P1,P2);
         Vector3 n = MathUtil.GetVector2Normal(P2-P1).normalized;
         Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(Vector3.zero, n);
+        Gizmos.DrawLine(P1 + (P2 - P1) * 0.5f, P1 + (P2 - P1) * 0.5f + n);
 
         D = MathUtil.GetLine(P1,n);
         if(null != Obj)

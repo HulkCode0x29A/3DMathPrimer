@@ -21,6 +21,8 @@ public class RayToAABB : MonoBehaviour
     public Vector3 Debug;
 
     private IntersectInfo info = new IntersectInfo();
+
+    public bool drawTriangle;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,7 +39,8 @@ public class RayToAABB : MonoBehaviour
     {
         GizmosExtension.DrawLHCoordinate(Vector3.zero);
 
-        GizmosExtension.DrawWireTriangle(P1, P2, P3);
+        if (drawTriangle)
+            GizmosExtension.DrawWireTriangle(P1, P2, P3);
 
         box.SetToEmpety();
         box.Add(P1);

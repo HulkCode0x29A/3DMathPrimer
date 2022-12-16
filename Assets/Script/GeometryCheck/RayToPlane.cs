@@ -15,6 +15,8 @@ public class RayToPlane : MonoBehaviour
     public float T;
 
     private IntersectInfo info = new IntersectInfo();
+
+    public bool reverseIntersect;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,12 +33,13 @@ public class RayToPlane : MonoBehaviour
     {
         GizmosExtension.DrawWirePlane(P, N, Color.yellow, Color.white, true);
 
-        Gizmos.color = Color.cyan;
+        float planeD = MathUtil.GetPlane(P, Direction.normalized);
+        MathUtil.GetRayToPlaneIntersection(Origin, Direction.normalized, N, planeD, reverseIntersect, info);
+     
+        Gizmos.color = info.Intersect ? Color.cyan:Color.red;
         Gizmos.DrawSphere(Origin, 0.1f);
         Gizmos.DrawLine(Origin, Origin + T * Direction.normalized);
 
-        float planeD = MathUtil.GetPlane(P, Direction.normalized);
-        MathUtil.GetRayToPlaneIntersection(Origin, Direction.normalized, N, planeD, info);
         if (info.Intersect && info.Float1 <= T)
         {
             Gizmos.color = Color.red;

@@ -152,14 +152,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49b579bb5da080d46af610be76c3a32c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Test: 13
-  Quaternion1: {x: 1, y: 3, z: 2, w: 6}
+  Test: 15
+  Quaternion1: {x: 0, y: 0.71, z: 0, w: 0.71}
   Quaternion2: {x: -2, y: 5, z: -6, w: 1}
-  P1: {x: 0, y: 1, z: 1}
-  P2: {x: 0.99999994, y: 1, z: 0.000000034228542}
-  P3: {x: 0, y: -0.9999999, z: 1}
+  P1: {x: 2, y: 0, z: 0}
+  P2: {x: -2, y: 0, z: 0}
+  P3: {x: 0, y: 0, z: 2}
   P4: {x: 0.99999994, y: 1, z: 0.000000034228542}
-  InputAxis1: {x: 0, y: 1, z: 0}
+  InputAxis1: {x: -90, y: 45, z: 45}
   InputAxis2: {x: 1, y: 0, z: 0}
   InputFloat1: 90
   InputFloat2: 90

@@ -53,6 +53,7 @@
     <UnityVersion>2020.3.23f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\Orientation\QuaternionTest.cs" />
     <Compile Include="Assets\Script\GeometricPrimitive\BarycentricViewing.cs" />
     <Compile Include="Assets\Script\Matrix\MatrixPerspective.cs" />
     <Compile Include="Assets\Script\GeometricPrimitive\BarycentricCoordinates.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Assets\Script\Matrix\MatrixAffine.cs" />
     <Compile Include="Assets\Script\GeometryCheck\PointToPlane.cs" />
     <Compile Include="Assets\Script\GeometryCheck\PointToImplicitLine.cs" />
+    <Compile Include="Assets\Script\Tool\Quaternion.cs" />
     <Compile Include="Assets\Script\GeometryCheck\StaticSphereToPlane.cs" />
     <Compile Include="Assets\Script\Tool\MathUtil.cs" />
     <Compile Include="Assets\Scripts\Tool\PixelScreen.cs" />
@@ -113,11 +115,10 @@
     <Compile Include="Assets\Script\GeometryCheck\RayToAABB.cs" />
     <Compile Include="Assets\Script\GeometricPrimitive\LineEquation.cs" />
     <Compile Include="Assets\Script\Vector\VectorDistance.cs" />
+    <Compile Include="Assets\Script\Matrix\MatrixRotateYXZ.cs" />
     <Compile Include="Assets\Script\Vector\RuleOfTriangles.cs" />
     <Compile Include="Assets\Script\GeometricPrimitive\PlaneEquation.cs" />
-    <Compile Include="Assets\Script\Matrix\MatrixRotateYXZ.cs" />
-    <Compile Include="Assets\Script\Tool\Quaternion.cs" />
-    <Compile Include="Assets\Script\Orientation\QuaternionTest.cs" />
+    <Compile Include="Assets\Script\Matrix\MatrixInverse.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

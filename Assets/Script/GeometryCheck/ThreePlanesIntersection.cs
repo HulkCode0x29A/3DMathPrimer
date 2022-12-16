@@ -39,8 +39,8 @@ public class ThreePlanesIntersection : MonoBehaviour
 
         if (info.Intersect)
         {
-            Gizmos.color = Color.red;
-            Gizmos.DrawSphere(info.Vector1, 0.1f);
+            Gizmos.color = Color.green;
+            Gizmos.DrawSphere(info.Vector1, 0.2f);
         }
         
     }

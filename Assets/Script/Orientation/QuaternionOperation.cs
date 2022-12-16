@@ -96,7 +96,6 @@ public class QuaternionOperation : MonoBehaviour
 
     private void QuaternionAngleAxis()
     {
-     
         Cube.transform.rotation = Quaternion.AngleAxis(InputFloat1,InputVector1);
     }
 

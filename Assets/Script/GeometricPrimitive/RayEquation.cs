@@ -41,7 +41,7 @@ public class RayEquation : MonoBehaviour
                 Gizmos.color = Color.cyan;
                 Gizmos.DrawLine(P0, target);
 
-                Gizmos.color = Color.blue;
+                Gizmos.color = Color.yellow;
                 Gizmos.DrawLine(Vector3.zero, P1.normalized);
                 break;
             case RayDefine.DefineWithT:

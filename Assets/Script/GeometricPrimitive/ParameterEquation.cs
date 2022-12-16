@@ -24,6 +24,9 @@ public class ParameterEquation : MonoBehaviour
 
         float x = Mathf.Cos(Mathf.Deg2Rad * 360 * T);
         float y = Mathf.Sin(Mathf.Deg2Rad * 360 * T);
+
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawLine(Vector3.zero, new Vector3(x,y,0));
         Gizmos.DrawSphere(new Vector3(x, y, 0), 0.1f);
     }
 }
