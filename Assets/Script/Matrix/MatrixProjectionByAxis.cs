@@ -30,7 +30,7 @@ public class MatrixProjectionByAxis : MonoBehaviour
         Vector3[] points = GizmosExtension.GetCubePoints(Center, Size);
         GizmosExtension.DrawWireCube(points);
 
-        Gizmos.color = Color.cyan;
+        Gizmos.color = Color.yellow;
         Gizmos.DrawLine(Vector3.zero, N.normalized);
 
         Matrix4x4 matrix = MatrixUtil.GetProjectionByAxisMatrix(N.normalized);
@@ -40,7 +40,7 @@ public class MatrixProjectionByAxis : MonoBehaviour
             transPoints[i] = matrix.MultiplyPoint(points[i]);
         }
 
-        Gizmos.color = Color.blue;
+        Gizmos.color = Color.cyan;
         GizmosExtension.DrawWireCube(transPoints);
     }
 }

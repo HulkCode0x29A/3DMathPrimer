@@ -252,10 +252,10 @@ MonoBehaviour:
   P1: {x: 1, y: 1, z: -1}
   P2: {x: 3, y: 1, z: 0}
   P3: {x: 2, y: 3, z: 1}
-  RayStart: {x: 4, y: 3.91, z: 0}
-  Direction: {x: -1, y: -0.38, z: 0}
-  T: 3.82
-  Debug: {x: -3.5708735, y: -1.3569319, z: 0}
+  RayStart: {x: 0, y: 2, z: 0}
+  Direction: {x: 0.92, y: 0.13, z: 0}
+  T: 3.02
+  Debug: {x: 2.9902942, y: 0.42254162, z: 0}
   drawTriangle: 0
 --- !u!1 &1049487077
 GameObject:

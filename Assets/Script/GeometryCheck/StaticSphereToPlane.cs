@@ -32,7 +32,9 @@ public class StaticSphereToPlane : MonoBehaviour
         GizmosExtension.DrawWirePlane(P, N, Color.yellow, Color.white, true);
 
         float planeD = MathUtil.GetPlane(P, N.normalized);
+
         MathUtil.GetSphereToPlaneIntersect(N.normalized, planeD, Center, R, info);
+
         Gizmos.color = info.Intersect ? Color.green : Color.red;
         Gizmos.DrawSphere(Center, R);
 

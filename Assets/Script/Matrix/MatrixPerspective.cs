@@ -9,6 +9,7 @@ public enum PerspectiveEnum
 public class MatrixPerspective : MonoBehaviour
 {
     public PerspectiveEnum Perspective;
+
     public Vector4 P1;
 
     public Vector4 P2;
@@ -60,7 +61,7 @@ public class MatrixPerspective : MonoBehaviour
         }
 
 
-        Gizmos.color = Color.blue;
+        Gizmos.color = Color.green;
         GizmosExtension.DrawWireTriangle(transPoints[0], transPoints[1], transPoints[2]);
     }
 }

@@ -36,13 +36,13 @@ public class RayToPlane : MonoBehaviour
         float planeD = MathUtil.GetPlane(P, Direction.normalized);
         MathUtil.GetRayToPlaneIntersection(Origin, Direction.normalized, N, planeD, reverseIntersect, info);
      
-        Gizmos.color = info.Intersect ? Color.cyan:Color.red;
+        Gizmos.color = info.Intersect ? Color.white:Color.red;
         Gizmos.DrawSphere(Origin, 0.1f);
         Gizmos.DrawLine(Origin, Origin + T * Direction.normalized);
 
         if (info.Intersect && info.Float1 <= T)
         {
-            Gizmos.color = Color.red;
+            Gizmos.color = Color.green;
             Gizmos.DrawSphere(info.Vector1, 0.1f);
         }
     }

@@ -36,7 +36,7 @@ public class MatrixTranslation : MonoBehaviour
             transPoints[i] = matrix.MultiplyPoint(points[i]);
         }
 
-        Gizmos.color = Color.blue;
+        Gizmos.color = Color.green;
         GizmosExtension.DrawWireCube(transPoints);
 
     }

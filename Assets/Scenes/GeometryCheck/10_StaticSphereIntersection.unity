@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdd96291cc7150c47903b66b63cba9bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Center1: {x: 0.2, y: 1, z: 1}
+  Center1: {x: 0.47, y: 1, z: 1}
   R1: 0.5
   Center2: {x: 1.81, y: 1, z: 1}
   R2: 0.5

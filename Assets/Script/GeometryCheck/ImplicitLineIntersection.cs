@@ -43,14 +43,14 @@ public class ImplicitLineIntersection : MonoBehaviour
 
         if (info.Intersect)
         {
-            Gizmos.color = Color.red;
+            Gizmos.color = Color.green;
             Gizmos.DrawSphere(info.Vector1, 0.1f);
         }
 
         Gizmos.color = info.Intersect ? Color.blue : Color.red;
         Gizmos.DrawLine(Start1, End1);
 
-        Gizmos.color = info.Intersect ? Color.green : Color.red;
+        Gizmos.color = info.Intersect ? Color.cyan : Color.red;
         Gizmos.DrawLine(Start2, End2);
 
     }

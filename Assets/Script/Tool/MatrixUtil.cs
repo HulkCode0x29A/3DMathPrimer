@@ -11,6 +11,7 @@ public class MatrixUtil
     /// <returns></returns>
     public static Matrix4x4 GetRotateZMatrix(float theta)
     {
+        //formula (3.1.8)
         float radian = Mathf.Deg2Rad * theta;
         Matrix4x4 matrix = Matrix4x4.identity;
         matrix[0, 0] = Mathf.Cos(radian);
@@ -27,6 +28,7 @@ public class MatrixUtil
     /// <returns></returns>
     public static Matrix4x4 GetRotateXMatrix(float theta)
     {
+        //formula (3.1.6)
         float radian = Mathf.Deg2Rad * theta;
         Matrix4x4 matrix = Matrix4x4.identity;
         matrix[1, 1] = Mathf.Cos(radian);
@@ -43,6 +45,7 @@ public class MatrixUtil
     /// <returns></returns>
     public static Matrix4x4 GetRotateYMatrix(float theta)
     {
+        //formula (3.1.7)
         float radian = Mathf.Deg2Rad * theta;
         Matrix4x4 matrix = Matrix4x4.identity;
         matrix[0, 0] = Mathf.Cos(radian);
@@ -56,21 +59,22 @@ public class MatrixUtil
     /// Obtain the matrix of any rotation Angle about any axis
     /// </summary>
     /// <param name="n">rotate axis</param>
-    /// <param name="theta">rotate angle</param>
+    /// <param name="angle">rotate angle</param>
     /// <returns></returns>
-    public static Matrix4x4 GetRotateByAxisMatrix(Vector3 n, float theta)
+    public static Matrix4x4 GetRotateByAxisMatrix(Vector3 n, float angle)
     {
+        //formula (3.1.18)
         Matrix4x4 matrix = Matrix4x4.identity;
-        float radian = Mathf.Deg2Rad * theta;
-        matrix[0, 0] = n.x * n.x * (1 - Mathf.Cos(radian)) + Mathf.Cos(radian);
-        matrix[0, 1] = n.x * n.y * (1 - Mathf.Cos(radian)) - n.z * Mathf.Sin(radian);
-        matrix[0, 2] = n.x * n.z * (1 - Mathf.Cos(radian)) + n.y * Mathf.Sin(radian);
-        matrix[1, 0] = n.x * n.y * (1 - Mathf.Cos(radian)) + n.z * Mathf.Sin(radian);
-        matrix[1, 1] = n.y * n.y * (1 - Mathf.Cos(radian)) + Mathf.Cos(radian);
-        matrix[1, 2] = n.y * n.z * (1 - Mathf.Cos(radian)) - n.x * Mathf.Sin(radian);
-        matrix[2, 0] = n.x * n.z * (1 - Mathf.Cos(radian)) - n.y * Mathf.Sin(radian);
-        matrix[2, 1] = n.y * n.z * (1 - Mathf.Cos(radian)) + n.x * Mathf.Sin(radian);
-        matrix[2, 2] = n.z * n.z * (1 - Mathf.Cos(radian)) + Mathf.Cos(radian);
+        float theta = Mathf.Deg2Rad * angle;
+        matrix[0, 0] = n.x * n.x * (1 - Mathf.Cos(theta)) + Mathf.Cos(theta);
+        matrix[0, 1] = n.x * n.y * (1 - Mathf.Cos(theta)) - n.z * Mathf.Sin(theta);
+        matrix[0, 2] = n.x * n.z * (1 - Mathf.Cos(theta)) + n.y * Mathf.Sin(theta);
+        matrix[1, 0] = n.x * n.y * (1 - Mathf.Cos(theta)) + n.z * Mathf.Sin(theta);
+        matrix[1, 1] = n.y * n.y * (1 - Mathf.Cos(theta)) + Mathf.Cos(theta);
+        matrix[1, 2] = n.y * n.z * (1 - Mathf.Cos(theta)) - n.x * Mathf.Sin(theta);
+        matrix[2, 0] = n.x * n.z * (1 - Mathf.Cos(theta)) - n.y * Mathf.Sin(theta);
+        matrix[2, 1] = n.y * n.z * (1 - Mathf.Cos(theta)) + n.x * Mathf.Sin(theta);
+        matrix[2, 2] = n.z * n.z * (1 - Mathf.Cos(theta)) + Mathf.Cos(theta);
         return matrix;
     }
 
@@ -198,6 +202,7 @@ public class MatrixUtil
     /// <returns></returns>
     public static Matrix4x4 GetScaleMatrix(Vector3 scale)
     {
+        //formula (3.2.3)
         Matrix4x4 matrix = Matrix4x4.identity;
         matrix[0, 0] = scale.x;
         matrix[1, 1] = scale.y;
@@ -213,6 +218,7 @@ public class MatrixUtil
     /// <returns></returns>
     public static Matrix4x4 GetScaleByAxisMatrix(Vector3 n, float k)
     {
+        //formula (3.7.11)
         Matrix4x4 matrix = Matrix4x4.identity;
         matrix[0, 0] = 1 + (k - 1) * n.x * n.x;
         matrix[0, 1] = (k - 1) * n.x * n.y;
@@ -232,6 +238,7 @@ public class MatrixUtil
     /// <returns></returns>
     public static Matrix4x4 GetProjectionXYMatrix()
     {
+        //formula (3.4.3)
         Matrix4x4 matrix = Matrix4x4.zero;
         matrix[0, 0] = 1;
         matrix[1, 1] = 1;
@@ -244,6 +251,7 @@ public class MatrixUtil
     /// <returns></returns>
     public static Matrix4x4 GetProjectionXZMatrix()
     {
+        //formula (3.4.4)
         Matrix4x4 matrix = Matrix4x4.zero;
         matrix[0, 0] = 1;
         matrix[2, 2] = 1;
@@ -256,6 +264,7 @@ public class MatrixUtil
     /// <returns></returns>
     public static Matrix4x4 GetProjectionYZMatrix()
     {
+        //formula (3.4.5)
         Matrix4x4 matrix = Matrix4x4.zero;
         matrix[1, 1] = 1;
         matrix[2, 2] = 1;
@@ -269,6 +278,7 @@ public class MatrixUtil
     /// <returns></returns>
     public static Matrix4x4 GetProjectionByAxisMatrix(Vector3 n)
     {
+        //formula (3.5.2)
         Matrix4x4 matrix = Matrix4x4.identity;
         matrix[0, 0] = 1 - n.x * n.x;
         matrix[0, 1] = -n.x * n.y;
@@ -289,6 +299,7 @@ public class MatrixUtil
     /// <returns></returns>
     public static Matrix4x4 GetReflectByAxisMatrix(Vector3 n)
     {
+        //formula (3.6.2)
         Matrix4x4 matrix = Matrix4x4.identity;
         matrix[0, 0] = 1 - 2 * n.x * n.x;
         matrix[0, 1] = -2 * n.x * n.y;
@@ -310,6 +321,7 @@ public class MatrixUtil
     /// <returns></returns>
     public static Matrix4x4 GetShearXYMatrix(float s, float t)
     {
+        //formula (3.7.3)
         Matrix4x4 matrix = Matrix4x4.identity;
         matrix[0, 2] = s;
         matrix[1, 2] = t;
@@ -324,6 +336,7 @@ public class MatrixUtil
     /// <returns></returns>
     public static Matrix4x4 GetShearXZMatrix(float s, float t)
     {
+        //formula (3.7.4)
         Matrix4x4 matrix = Matrix4x4.identity;
         matrix[0, 1] = s;
         matrix[2, 1] = t;
@@ -338,6 +351,7 @@ public class MatrixUtil
     /// <returns></returns>
     public static Matrix4x4 GetShearYZMatrix(float s, float t)
     {
+        //formula (3.7.5)
         Matrix4x4 matrix = Matrix4x4.identity;
         matrix[1, 0] = s;
         matrix[2, 0] = t;
@@ -351,6 +365,7 @@ public class MatrixUtil
     /// <returns></returns>
     public static Matrix4x4 GetTranslationMatrix(Vector3 trans)
     {
+        //formula (3.8.1)
         Matrix4x4 matrix = Matrix4x4.identity;
         matrix[0, 3] = trans.x;
         matrix[1, 3] = trans.y;
@@ -366,6 +381,7 @@ public class MatrixUtil
     /// <returns></returns>
     public static Matrix4x4 GetPerspectiveZDMatrix(Vector3 pos, float d)
     {
+        //formula (3.13.5)
         Matrix4x4 matrix = Matrix4x4.identity;
         matrix[0, 0] = d / pos.z;
         matrix[1, 1] = d / pos.z;
@@ -381,6 +397,7 @@ public class MatrixUtil
     /// <returns></returns>
     public static Matrix4x4 GetPerspectiveDMatrix(float d)
     {
+        //formula (3.13.8)
         Matrix4x4 matrix = Matrix4x4.identity;
         matrix[3, 2] = 1 / d;
         matrix[3, 3] = 0;

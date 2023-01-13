@@ -49,12 +49,13 @@ public class BarycentricCoordinates : MonoBehaviour
         {
             for (p.y = boxMin.y; p.y < boxMax.y; p.y++)
             {
-                Vector3 barycentric = MathUtil.GetBarycentricByPoints(P1, P2, P3, p);
-                //Vector3 barycentric = MathUtil.GetBarycentricBySides(P1, P2, P3, p);
+                //Vector3 barycentric = MathUtil.GetBarycentricByPoints(P1, P2, P3, p);
+                Vector3 barycentric = MathUtil.GetBarycentricBySides(P1, P2, P3,p);
 
                 //determine if the pixel is in a triangle
                 if (barycentric.x >= 0 && barycentric.y >= 0 && barycentric.x + barycentric.y <= 1)
                 {
+                    //formula (5.8.1)
                     Color lerpColor = barycentric.x * Color1 + barycentric.y * Color2 + barycentric.z * Color3;
                     Screen.SetPixel((int)p.x,(int)p.y,lerpColor);
                 }

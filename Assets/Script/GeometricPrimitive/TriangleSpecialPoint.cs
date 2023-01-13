@@ -6,6 +6,7 @@ public enum TriangleSpecialEnum
 {
     Barycenter,
     Heart,
+    Circumcenter
 }
 
 public class TriangleSpecialPoint : MonoBehaviour
@@ -42,29 +43,32 @@ public class TriangleSpecialPoint : MonoBehaviour
         switch (Special)
         {
             case TriangleSpecialEnum.Barycenter:
-                Vector3 barycenter = (P1 + P2 + P3) / 3;
+                Vector3 barycenter = MathUtil.GetTriangleBarycenter(P1,P2,P3); 
                 Gizmos.color = Color.green;
                 Gizmos.DrawSphere(barycenter, 0.1f);
                 break;
             case TriangleSpecialEnum.Heart:
-                Vector3 e1 = P2 - P3;
-                Vector3 e2 = P3 - P1;
-                Vector3 e3 = P1 - P2;
-                float p = MathUtil.GetTrianglePerimeter(e1,e2,e3);
-                Vector3 numerator = e1.magnitude * P1 + e2.magnitude * P2 + e3.magnitude * P3;
-                Vector3 heart = numerator / p ;
+                Vector3 heart = MathUtil.GetTriangleHeart(P1,P2,P3);
                 Gizmos.color = Color.green;
                 Gizmos.DrawSphere(heart, 0.1f);
 
                 if(DrawIncircle)
                 {
-                    float r = 2 * MathUtil.GetTriangleArea(e1, e2) / p;
+                    float r = MathUtil.GetTriangleIncircleRadius(P1,P2,P3);
                     Gizmos.DrawWireSphere(heart,r);
                 }
-                
-                
+               
+                break;
+            case TriangleSpecialEnum.Circumcenter:
+                Vector3 circumcenter = MathUtil.GetTriangleCircumcenter(P1,P2,P3);
+                Gizmos.color = Color.green;
+                Gizmos.DrawSphere(circumcenter, 0.1f);
 
-
+                if (DrawIncircle)
+                {
+                    float r = MathUtil.GetTriangleCrcumcircleRadius(P1, P2, P3);
+                    Gizmos.DrawWireSphere(circumcenter, r);
+                }
                 break;
             default:
                 break;

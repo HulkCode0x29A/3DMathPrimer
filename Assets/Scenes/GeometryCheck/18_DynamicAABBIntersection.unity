@@ -152,14 +152,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84671246cb019e540a8ef65362bb098e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  P1: {x: 1, y: 1, z: 8}
-  P2: {x: 3, y: 1, z: 7}
-  P3: {x: 2, y: 3, z: 6}
+  P1: {x: 7, y: 1, z: 3}
+  P2: {x: 9, y: 1, z: 2}
+  P3: {x: 8, y: 3, z: 1}
   P4: {x: 1, y: 1, z: 3}
   P5: {x: 2, y: 1, z: 2}
   P6: {x: 3, y: 3, z: 1}
   DrawTriangle: 0
-  Direction: {x: 5.89, y: 2.8, z: 12}
+  Direction: {x: 10.96, y: 2.38, z: 0.17}
 --- !u!4 &350641237
 Transform:
   m_ObjectHideFlags: 0

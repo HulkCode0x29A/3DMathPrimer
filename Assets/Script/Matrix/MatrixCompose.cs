@@ -42,7 +42,7 @@ public class MatrixCompose : MonoBehaviour
             transPoints[i] = composeMatrix.MultiplyPoint(points[i]);
         }
 
-        Gizmos.color = Color.blue;
+        Gizmos.color = Color.green;
         GizmosExtension.DrawWireCube(transPoints);
     }
 }

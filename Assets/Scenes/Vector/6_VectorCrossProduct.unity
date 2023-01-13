@@ -153,8 +153,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   P1: {x: 1, y: 0, z: 0}
-  P2: {x: 0, y: 1, z: 0}
-  P3: {x: 0, y: 0, z: 1}
+  P2: {x: 0, y: 0.8, z: -1}
+  P3: {x: -0, y: 1, z: 0.8}
 --- !u!4 &65306977
 Transform:
   m_ObjectHideFlags: 0

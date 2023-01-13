@@ -32,7 +32,7 @@ public class MatrixProjection : MonoBehaviour
         GizmosExtension.DrawLHCoordinate(Vector3.zero);
 
         Vector3[] points = GizmosExtension.GetCubePoints(Center, Size);
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.green;
         GizmosExtension.DrawWireCube(points);
 
         Matrix4x4 matrix = Matrix4x4.identity;
@@ -56,7 +56,7 @@ public class MatrixProjection : MonoBehaviour
             transPoints[i] = matrix * points[i];
         }
 
-        Gizmos.color = Color.blue;
+        Gizmos.color = Color.red;
         GizmosExtension.DrawWireCube(transPoints);
     }
 }

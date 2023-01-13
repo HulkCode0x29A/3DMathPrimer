@@ -30,7 +30,8 @@ public class PointToPlane : MonoBehaviour
         GizmosExtension.DrawWirePlane(P,N, Color.yellow, Color.white, true);
 
         MathUtil.GetNearstPointToPlane(P,N.normalized,Obj.transform.position, info);
-        Gizmos.color = Color.red;
+
+        Gizmos.color = Color.green;
         Gizmos.DrawSphere(info.Vector1,0.1f);
         Gizmos.DrawLine(Obj.transform.position, info.Vector1);
 

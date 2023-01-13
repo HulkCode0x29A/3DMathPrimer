@@ -35,14 +35,14 @@ public class RayToSphere : MonoBehaviour
         Gizmos.DrawSphere(Origin ,0.1f);
         Gizmos.DrawLine(Origin, Origin + T * Direction.normalized);
 
-        Gizmos.color = Color.green;
+        Gizmos.color = Color.red;
         Gizmos.DrawSphere(Center, R);
 
         MathUtil.GetRayToSphereIntersection(Origin, Direction.normalized, Center, R, info);
 
         if(info.Intersect && info.Float1 <= T)
         {
-            Gizmos.color = Color.red;
+            Gizmos.color = Color.green;
             Gizmos.DrawSphere(info.Vector1, 0.1f);
         }
     }

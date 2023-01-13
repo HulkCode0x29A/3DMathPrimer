@@ -423,7 +423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1e3415942782b5448af41509d3a2636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Operation: 8
+  Operation: 0
   Cube: {fileID: 1613449853}
   Point1: {fileID: 1509914161}
   Point2: {fileID: 790129706}
@@ -541,7 +541,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8199364592164747061, guid: e3a8995772648fa4c907e572a3707a4d, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9092362
+      value: 0.92387956
       objectReference: {fileID: 0}
     - target: {fileID: 8199364592164747061, guid: e3a8995772648fa4c907e572a3707a4d, type: 3}
       propertyPath: m_LocalRotation.x
@@ -549,7 +549,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8199364592164747061, guid: e3a8995772648fa4c907e572a3707a4d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.41628075
+      value: 0.38268343
       objectReference: {fileID: 0}
     - target: {fileID: 8199364592164747061, guid: e3a8995772648fa4c907e572a3707a4d, type: 3}
       propertyPath: m_LocalRotation.z
@@ -561,7 +561,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8199364592164747061, guid: e3a8995772648fa4c907e572a3707a4d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 49.2
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 8199364592164747061, guid: e3a8995772648fa4c907e572a3707a4d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z

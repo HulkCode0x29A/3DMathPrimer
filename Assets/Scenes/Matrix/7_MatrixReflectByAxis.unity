@@ -168,7 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Center: {x: 0.5, y: 0.5, z: 0.5}
   Size: {x: 0.5, y: 0.5, z: 0.5}
-  N: {x: 1, y: 0, z: 1}
+  N: {x: 1, y: 1, z: 1}
 --- !u!1 &597568581
 GameObject:
   m_ObjectHideFlags: 0

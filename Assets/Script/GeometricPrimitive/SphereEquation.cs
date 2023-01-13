@@ -38,24 +38,26 @@ public class SphereEquation : MonoBehaviour
         GizmosExtension.DrawLHCoordinate(Vector3.zero);
 
         if(null != Obj)
-            Inside = InsideSphere(Obj.transform.position, Center, Radius);
+            Inside = MathUtil.InsideSphere(Obj.transform.position, Center, Radius);
 
         Gizmos.color = Inside ? Color.green: Color.red;
         Gizmos.DrawSphere(Center, Radius);
 
+        //fromula (5.3.3)
         CircleDiameter = 2 * Radius;
+
+        //fromula (5.3.4)
         CirclePerimeter = 2 * Mathf.PI * Radius;
+
+        //fromula (5.3.5)
         CircleArea = Mathf.PI * Radius * Radius;
 
+        //fromula (5.3.6)
         SphereArea = 4 * Mathf.PI * Radius * Radius;
+
+        //fromula (5.3.7)
         SphereVolume = 4.0f / 3.0f * Mathf.PI * Mathf.Pow(Radius, 3);
     }
 
-    public bool InsideSphere(Vector3 pos, Vector3 center,float r)
-    {
-        float r2 = r * r;
-
-        float value = Mathf.Pow(pos.x - center.x, 2) + Mathf.Pow(pos.y - center.y,2) +Mathf.Pow(pos.z - center.z,2);
-        return value <= r2;
-    }
+   
 }

@@ -153,9 +153,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Axis: 2
-  P1: {x: 1, y: 1, z: 0}
-  P2: {x: 0.69088244, y: 1, z: -0.72296715}
-  Angle: 46.3
+  P1: {x: 1, y: 1.5, z: 0}
+  P2: {x: -1, y: 1.5, z: 0}
+  P3: {x: 0, y: 2.5, z: 0}
+  Angle: 86.49
 --- !u!4 &144040201
 Transform:
   m_ObjectHideFlags: 0
@@ -257,7 +258,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 432743432}
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: 100, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

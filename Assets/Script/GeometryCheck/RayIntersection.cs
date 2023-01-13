@@ -19,6 +19,8 @@ public class RayIntersection : MonoBehaviour
     private IntersectInfo info = new IntersectInfo();
 
     public bool Strict;
+
+    public float Error;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,21 +39,27 @@ public class RayIntersection : MonoBehaviour
 
         Gizmos.color = Color.cyan;
         Gizmos.DrawLine(Start1, Start1 + T1 * Direction1.normalized);
-        Gizmos.color = Color.green;
+        Gizmos.color = Color.blue;
         Gizmos.DrawLine(Start2, Start2 + T2 * Direction2.normalized);
 
         MathUtil.GetRayIntersection(Start1, Direction1.normalized, Start2, Direction2.normalized, info);
 
         if (info.Intersect)
         {
-            Gizmos.color = Color.red;
+            Gizmos.color = Color.green;
             if (Strict)
             {
                 bool float1Valid = info.Float1 >= 0 && info.Float1 <= T1;
                 bool float2Valid = info.Float2 >= 0 && info.Float2 <= T2;
-                bool error = (info.Vector1 - info.Vector2).magnitude < 0.001f;
-                if (float1Valid && float2Valid && error)
+                bool errorValid = (info.Vector1 - info.Vector2).magnitude < Error;
+                if (float1Valid && float2Valid && errorValid)
+                {
                     Gizmos.DrawSphere(info.Vector1, 0.1f);
+                    Gizmos.DrawSphere(info.Vector2, 0.1f);
+                    Gizmos.color = Color.white;
+                    Gizmos.DrawLine(info.Vector1, info.Vector2);
+                }
+                    
             }
             else
             {

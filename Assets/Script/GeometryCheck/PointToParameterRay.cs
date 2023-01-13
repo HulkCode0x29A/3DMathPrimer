@@ -13,11 +13,12 @@ public class PointToParameterRay : MonoBehaviour
 
     public Vector3 Origin;
 
+    public Vector3 End;
+
     public Vector3 Direction;
 
     public float Length;
 
-    public Vector3 End;
     [Range(0, 1)]
     public float T;
 
@@ -53,21 +54,28 @@ public class PointToParameterRay : MonoBehaviour
                 //Length must >= 0
                 info.Float1 = Mathf.Clamp(info.Float1, 0, Length);
                 Vector3 point1 = Origin + info.Float1 * Direction.normalized;
-                Gizmos.color = Color.red;
+                Gizmos.color = Color.green;
                 Gizmos.DrawSphere(point1, 0.1f);
                 Gizmos.DrawLine(Obj.transform.position, point1);
+
+                Gizmos.color = Color.red;
+                Gizmos.DrawSphere(info.Vector1, 0.1f);
                 break;
             case RayDefine.DefineWithT:
                 Gizmos.color = Color.cyan;
                 Vector3 endToOrigin = End - Origin;
-                Gizmos.DrawLine(Origin, endToOrigin * T);
+                Gizmos.DrawLine(Origin, Origin + endToOrigin * T);
 
                 MathUtil.GetNearstPointToTRay(Origin, endToOrigin, Obj.transform.position, info);
-                info.Float1 = Mathf.Clamp(info.Float1, 0, (endToOrigin * T).magnitude);
-                Vector3 point2 = Origin + info.Float1 * endToOrigin.normalized;
-                Gizmos.color = Color.red;
+                float t = Mathf.Clamp(info.Float1, 0, (endToOrigin * T).magnitude);
+                Vector3 point2 = Origin + t * endToOrigin.normalized;
+
+                Gizmos.color = Color.green;
                 Gizmos.DrawSphere(point2, 0.1f);
                 Gizmos.DrawLine(Obj.transform.position, point2);
+
+                Gizmos.color = Color.red;
+                Gizmos.DrawSphere(info.Vector1, 0.1f);
                 break;
 
         }

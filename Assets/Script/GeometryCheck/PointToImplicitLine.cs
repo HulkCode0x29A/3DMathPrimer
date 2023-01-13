@@ -34,6 +34,7 @@ public class PointToImplicitLine : MonoBehaviour
         Gizmos.DrawLine(P1, P2);
 
         Vector3 n = MathUtil.GetVector2Normal(P2 - P1).normalized;
+
         Gizmos.color = Color.yellow;
         Vector3 middle = (P2 - P1) * 0.5f;
         Gizmos.DrawLine(P1+middle, P1+middle + n);
@@ -43,9 +44,9 @@ public class PointToImplicitLine : MonoBehaviour
         Distance = MathUtil.GetNearestDistanceToImplicitLine(Obj.transform.position, D, n);
 
         Vector3 point = MathUtil.GetNearestPointToImplicitLine(Obj.transform.position,D,n);
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(point, 0.1f);
 
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(point, 0.1f);
         Gizmos.DrawLine(Obj.transform.position, point);
     }
 }

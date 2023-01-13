@@ -26,22 +26,24 @@ public class VectorProjection : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        N = new Vector3(1, 0, 0);
+        Vector3 normalN = N.normalized;
         Gizmos.color = Color.green;
         Gizmos.DrawSphere(V, 0.1f);
 
-        VParallel = N * (Vector3.Dot(V, N));
+        //formula (2.2.6)
+        VParallel = normalN * (Vector3.Dot(V, normalN));
         Gizmos.DrawLine(Vector3.zero, VParallel);
 
+        //formula (2.2.7)
         VVertical = V - VParallel;
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.blue;
         Gizmos.DrawLine(VParallel, VParallel +VVertical);
 
-        Gizmos.color = Color.blue;
+        Gizmos.color = Color.red;
         Gizmos.DrawLine(Vector3.zero, VParallel + VVertical);
 
-        Gizmos.color = Color.black;
-        Gizmos.DrawLine(Vector3.zero, N);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(Vector3.zero, normalN);
 
     }
 }

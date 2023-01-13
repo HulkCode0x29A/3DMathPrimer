@@ -81,6 +81,7 @@ public class VectorOperation : MonoBehaviour
     {
         GizmosExtension.DrawLHCoordinate(Vector3.zero);
 
+        //formula (2.1.1)
         VectorValue2 = -VectorValue1;
 
         Gizmos.color = Color.green;
@@ -95,36 +96,38 @@ public class VectorOperation : MonoBehaviour
     {
         GizmosExtension.DrawLHCoordinate(Vector3.zero);
 
-        Gizmos.color = Color.green;
+        Gizmos.color = Color.cyan;
         Gizmos.DrawLine(Vector3.zero, VectorValue1);
 
-        FloatValue1 = VectorValue1.magnitude;
-        //Vector3.Magnitude(vector);
+        //FloatValue1 = VectorValue1.magnitude;
+        //formula (2.1.2)
+        FloatValue1 = Mathf.Sqrt(VectorValue1.x * VectorValue1.x+VectorValue1.y * VectorValue1.y+ VectorValue1.z * VectorValue1.z);
     }
 
     private void ScalarVector()
     {
         GizmosExtension.DrawLHCoordinate(Vector3.zero);
 
+        //formula (2.1.3)
         VectorValue2 = VectorValue1 * FloatValue1;
 
         Gizmos.color = Color.red;
         Gizmos.DrawLine(Vector3.zero, VectorValue2);
-
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(Vector3.zero, VectorValue1);
     }
 
     private void NormalizedVector()
     {
         GizmosExtension.DrawLHCoordinate(Vector3.zero);
 
-        VectorValue2 = VectorValue1.normalized;
+        //VectorValue2 = VectorValue1.normalized;
 
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(Vector3.zero, VectorValue1);
+        //formula (2.1.4)
+        VectorValue2 = VectorValue1 / VectorValue1.magnitude;
 
         Gizmos.color = Color.red;
+        Gizmos.DrawLine(Vector3.zero, VectorValue1);
+
+        Gizmos.color = Color.cyan;
         Gizmos.DrawLine(Vector3.zero, VectorValue2);
     }
 
@@ -142,8 +145,12 @@ public class VectorOperation : MonoBehaviour
         Gizmos.color = Color.white;
         Gizmos.DrawLine(VectorValue1, VectorValue2);
 
-        Vector3 minusVector = VectorValue1 - VectorValue2;
-        FloatValue1 = minusVector.magnitude;
+        //Vector3 minusVector = VectorValue1 - VectorValue2;
+        //FloatValue1 = minusVector.magnitude;
+
+        //formula (2.1.6)
+        Vector3 minusVector = new Vector3 (VectorValue1.x - VectorValue2.x, VectorValue1.y - VectorValue2.y, VectorValue1.z - VectorValue2.z);
+        FloatValue1 = Mathf.Sqrt(minusVector.x * minusVector.x + minusVector.y * minusVector.y + minusVector.z + minusVector.z);
     }
 
   

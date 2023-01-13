@@ -29,7 +29,7 @@ public class MatrixReflectByAxis : MonoBehaviour
         Vector3[] points = GizmosExtension.GetCubePoints(Center, Size);
         GizmosExtension.DrawWireCube(points);
 
-        Gizmos.color = Color.cyan;
+        Gizmos.color = Color.yellow;
         Gizmos.DrawLine(Vector3.zero, N.normalized);
 
         Matrix4x4 matrix = MatrixUtil.GetReflectByAxisMatrix(N.normalized);
@@ -39,7 +39,7 @@ public class MatrixReflectByAxis : MonoBehaviour
             transPoints[i] = matrix.MultiplyPoint(points[i]);
         }
 
-        Gizmos.color = Color.blue;
+        Gizmos.color = Color.green;
         GizmosExtension.DrawWireCube(transPoints);
     }
 }

@@ -30,6 +30,7 @@ public class MatrixGramSchmidt : MonoBehaviour
         Gizmos.color = Color.cyan;
         Gizmos.DrawLine(Vector3.zero, X3);
 
+        //formula (3.11.1)
         Vector3 v1 = X1;
         Vector3 v2 = X2 - (Vector3.Dot(X2, v1) / Vector3.Dot(v1, v1)) * v1;
         Vector3 v3 = X3 - (Vector3.Dot(X3, v1) / Vector3.Dot(v1, v1)) * v1 - (Vector3.Dot(X3, v2) / Vector3.Dot(v2, v2)) * v2;

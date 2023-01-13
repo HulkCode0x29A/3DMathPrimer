@@ -259,10 +259,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52c6ec7e1e0d53e49a0ff38f116758cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Lerp: 2
+  Lerp: 0
   Model: {fileID: 1376070987}
-  StartAngle: 170
-  EndAngle: -170
+  StartAngle: 720
+  EndAngle: 45
   T: 0
 --- !u!1 &1376070987 stripped
 GameObject:
@@ -381,7 +381,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8199364592164747061, guid: e3a8995772648fa4c907e572a3707a4d, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.91671175
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8199364592164747061, guid: e3a8995772648fa4c907e572a3707a4d, type: 3}
       propertyPath: m_LocalRotation.x
@@ -389,7 +389,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8199364592164747061, guid: e3a8995772648fa4c907e572a3707a4d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.3995492
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8199364592164747061, guid: e3a8995772648fa4c907e572a3707a4d, type: 3}
       propertyPath: m_LocalRotation.z
@@ -401,7 +401,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8199364592164747061, guid: e3a8995772648fa4c907e572a3707a4d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 47.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8199364592164747061, guid: e3a8995772648fa4c907e572a3707a4d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z

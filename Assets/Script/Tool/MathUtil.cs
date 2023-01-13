@@ -17,6 +17,7 @@ public class AABB3
 
     public void Add(Vector3 p)
     {
+
         if (p.x < min.x)
             min.x = p.x;
         if (p.x > max.x)
@@ -54,6 +55,7 @@ public class MathUtil
     /// <returns></returns>
     public static Vector2 GetVector2Normal(Vector2 v)
     {
+        //formula (5.2.6)
         return new Vector2(-v.y, v.x);
     }
 
@@ -65,6 +67,7 @@ public class MathUtil
     /// <returns></returns>
     public static float GetLine(Vector3 point, Vector3 normal)
     {
+        //formula (5.2.2)
         return Vector3.Dot(point, normal);
     }
 
@@ -82,6 +85,21 @@ public class MathUtil
     }
 
     /// <summary>
+    /// Determine if the point is inside the sphere
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <param name="sphereCenter"></param>
+    /// <param name="sphereRadius"></param>
+    /// <returns></returns>
+    public static bool InsideSphere(Vector3 pos, Vector3 sphereCenter, float sphereRadius)
+    {
+        //formula (5.3.2)
+        float r2 = sphereRadius * sphereRadius;
+        float value = Mathf.Pow(pos.x - sphereCenter.x, 2) + Mathf.Pow(pos.y - sphereCenter.y, 2) + Mathf.Pow(pos.z - sphereCenter.z, 2);
+        return value <= r2;
+    }
+
+    /// <summary>
     /// Gets the plane implicit definition parameter
     /// </summary>
     /// <param name="planePoint">point on plane</param>
@@ -89,6 +107,7 @@ public class MathUtil
     /// <returns></returns>
     public static float GetPlane(Vector3 planePoint, Vector3 planeNormal)
     {
+        //formula (5.5.3)
         return Vector3.Dot(planePoint, planeNormal);
     }
 
@@ -135,7 +154,7 @@ public class MathUtil
     }
 
     /// <summary>
-    /// Get triangle center of gravity
+    /// Get triangle center of barycenter
     /// </summary>
     /// <param name="p1"></param>
     /// <param name="p2"></param>
@@ -143,7 +162,105 @@ public class MathUtil
     /// <returns></returns>
     public static Vector3 GetTriangleBarycenter(Vector3 p1, Vector3 p2, Vector3 p3)
     {
+        //formula (5.10.1)
         return (p1 + p2 + p3) / 3;
+    }
+
+    /// <summary>
+    /// Get triangle center of heart
+    /// </summary>
+    /// <param name="p1"></param>
+    /// <param name="p2"></param>
+    /// <param name="p3"></param>
+    /// <returns></returns>
+    public static Vector3 GetTriangleHeart(Vector3 p1, Vector3 p2, Vector3 p3)
+    {
+        //formula (5.10.2)
+        Vector3 e1 = p2 - p3;
+        Vector3 e2 = p3 - p1;
+        Vector3 e3 = p1 - p2;
+        float p = GetTrianglePerimeter(e1, e2, e3);
+        Vector3 numerator = e1.magnitude * p1 + e2.magnitude * p2 + e3.magnitude * p3;
+        Vector3 heart = numerator / p;
+
+        return heart;
+    }
+
+    /// <summary>
+    /// Obtain the radius of the triangle incircle
+    /// </summary>
+    /// <param name="p1"></param>
+    /// <param name="p2"></param>
+    /// <param name="p3"></param>
+    /// <returns></returns>
+    public static float GetTriangleIncircleRadius(Vector3 p1, Vector3 p2, Vector3 p3)
+    {
+        Vector3 e1 = p2 - p3;
+        Vector3 e2 = p3 - p1;
+        Vector3 e3 = p1 - p2;
+        float p = GetTrianglePerimeter(e1, e2, e3);
+        //formula (5.10.3)
+        float r = 2 * GetTriangleArea(e1, e2) / p;
+        return r;
+    }
+
+    /// <summary>
+    /// Get the outer center of the triangle
+    /// </summary>
+    /// <param name="p1"></param>
+    /// <param name="p2"></param>
+    /// <param name="p3"></param>
+    /// <returns></returns>
+    public static Vector3 GetTriangleCircumcenter(Vector3 p1, Vector3 p2, Vector3 p3)
+    {
+        Vector3 e1 = p2 - p3;
+        Vector3 e2 = p3 - p1;
+        Vector3 e3 = p1 - p2;
+
+        //formula (5.10.4)
+        float d1 = -Vector3.Dot(e2, e3);
+        float d2 = -Vector3.Dot(e3, e1);
+        float d3 = -Vector3.Dot(e1, e2);
+
+        float c1 = d2 * d3;
+        float c2 = d3 * d1;
+        float c3 = d1 * d2;
+        float c = c1 + c2 + c3;
+
+        //formula (5.10.5)
+        Vector3 numerator = (c2 + c3) * p1 + (c3 + c1) * p2 + (c1 + c2) * p3;
+        float denominator = 2 * c;
+        Vector3 circumcenter = numerator / denominator;
+        return circumcenter;
+    }
+
+    /// <summary>
+    /// Obtain the radius of the triangle's outer circle
+    /// </summary>
+    /// <param name="p1"></param>
+    /// <param name="p2"></param>
+    /// <param name="p3"></param>
+    /// <returns></returns>
+    public static float GetTriangleCrcumcircleRadius(Vector3 p1, Vector3 p2, Vector3 p3)
+    {
+        Vector3 e1 = p2 - p3;
+        Vector3 e2 = p3 - p1;
+        Vector3 e3 = p1 - p2;
+
+        //formula (5.10.4)
+        float d1 = -Vector3.Dot(e2, e3);
+        float d2 = -Vector3.Dot(e3, e1);
+        float d3 = -Vector3.Dot(e1, e2);
+
+        float c1 = d2 * d3;
+        float c2 = d3 * d1;
+        float c3 = d1 * d2;
+        float c = c1 + c2 + c3;
+
+        //formula (5.10.6)
+        float numerator = Mathf.Sqrt(((d1 + d2) * (d2 + d3) * (d3 + d1)) / c);
+        float raidus = numerator / 2;
+        return raidus;
     }
 
     /// <summary>
@@ -155,6 +272,7 @@ public class MathUtil
     /// <returns></returns>
     public static float GetTrianglePerimeter(Vector3 e1, Vector3 e2, Vector3 e3)
     {
+        //formula (5.7.3)
         return e1.magnitude + e2.magnitude + e3.magnitude;
     }
 
@@ -167,6 +285,7 @@ public class MathUtil
     /// <returns></returns>
     public static float GetTriangleArea(Vector3 e1, Vector3 e2, Vector3 e3)
     {
+        //formula (5.7.5)
         float perimeter = GetTrianglePerimeter(e1, e2, e3);
         float s = perimeter / 2f;
         float l1 = e1.magnitude;
@@ -184,6 +303,7 @@ public class MathUtil
     /// <returns></returns>
     public static float GetTriangleArea(Vector3 e1, Vector3 e2)
     {
+        //formula (5.7.10)
         return Vector3.Cross(e1, e2).magnitude * 0.5f;
     }
 
@@ -197,6 +317,7 @@ public class MathUtil
     /// <returns></returns>
     public static Vector3 GetBarycentricByPoints(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p)
     {
+        //formula (5.8.3)
         float numerator1 = (p2.y - p3.y) * (p.x - p3.x) + (p3.x - p2.x) * (p.y - p3.y);
         float numerator2 = (p3.y - p1.y) * (p.x - p3.x) + (p1.x - p3.x) * (p.y - p3.y);
         float denominator = (p2.y - p3.y) * (p1.x - p3.x) + (p3.x - p2.x) * (p1.y - p3.y);
@@ -219,13 +340,18 @@ public class MathUtil
     /// <returns></returns>
     public static Vector3 GetBarycentricBySides(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p)
     {
+        //formula (5.9.1)
         Vector2 e1 = p3 - p2;
         Vector2 e2 = p1 - p3;
         Vector2 e3 = p2 - p1;
         Vector3 d1 = p - p1;
         Vector3 d2 = p - p2;
         Vector3 d3 = p - p3;
+
+        //formula (5.9.2)
         Vector3 n = Vector3.Cross(e1, e2).normalized;
+
+        //formula (5.9.3)
         float numerator1 = Vector3.Dot(Vector3.Cross(e1, d3), n);
         float numerator2 = Vector3.Dot(Vector3.Cross(e2, d1), n);
         float numerator3 = Vector3.Dot(Vector3.Cross(e3, d2), n);
@@ -233,6 +359,7 @@ public class MathUtil
         float b1 = numerator1 / denominator;
         float b2 = numerator2 / denominator;
         float b3 = numerator3 / denominator;
+
         return new Vector3(b1, b2, b3);
     }
 
@@ -287,6 +414,7 @@ public class MathUtil
         }
         else
         {
+            //formula (5.8.3)
             //projection to xy plane
             numerator1 = (p2.y - p3.y) * (p.x - p3.x) + (p3.x - p2.x) * (p.y - p3.y);
             numerator2 = (p3.y - p1.y) * (p.x - p3.x) + (p1.x - p3.x) * (p.y - p3.y);
@@ -310,12 +438,13 @@ public class MathUtil
     /// <summary>
     /// Gets the closest distance from the implicit line
     /// </summary>
-    /// <param name="q"></param>
-    /// <param name="d"></param>
-    /// <param name="n"></param>
+    /// <param name="q">arbitrary point</param>
+    /// <param name="d">line implicit parameter</param>
+    /// <param name="n">need normalize</param>
     /// <returns></returns>
     public static float GetNearestDistanceToImplicitLine(Vector3 q, float d, Vector3 n)
     {
+        //formula (6.0.1)
         float distance = d - Vector3.Dot(q, n);
         return distance;
     }
@@ -323,9 +452,13 @@ public class MathUtil
     /// <summary>
     /// Gets the closest point of the implicit line
     /// </summary>
+    /// <param name="q">arbitrary point</param>
+    /// <param name="d">line implicit parameter</param>
+    /// <param name="n">need normalize</param>
     /// <returns></returns>
     public static Vector3 GetNearestPointToImplicitLine(Vector3 q, float d, Vector3 n)
     {
+        //formula (6.0.1)
         float distance = GetNearestDistanceToImplicitLine(q, d, n);
         Vector3 point = q + distance * n;
         return point;
@@ -341,6 +474,7 @@ public class MathUtil
     /// <returns></returns>
     public static void GetNearstPointToLengthRay(Vector3 start, Vector3 direction, Vector3 fixedpoint, IntersectInfo info)
     {
+        //formula (6.1.1)
         float t = Vector3.Dot(direction, fixedpoint - start);
         Vector3 point = start + t * direction;
 
@@ -359,7 +493,9 @@ public class MathUtil
     /// <returns></returns>
     public static void GetNearstPointToTRay(Vector3 start, Vector3 direction, Vector3 fixedpoint, IntersectInfo info)
     {
-        float t = Vector3.Dot(direction, fixedpoint - start) / direction.magnitude;
+        //formula (6.1.1) (6.1.2)
+        float ddot = Vector3.Dot(direction, fixedpoint - start);
+        float t = ddot / direction.magnitude;
         Vector3 point = start + t * direction.normalized;
 
         info.Intersect = true;
@@ -378,11 +514,14 @@ public class MathUtil
     public static void GetNearstPointToPlane(Vector3 planePoint, Vector3 planeNormal, Vector3 fixedPoint, IntersectInfo info)
     {
         float d = GetPlane(planePoint, planeNormal);
-        float t = (d - Vector3.Dot(fixedPoint, planeNormal));
-        Vector3 point = fixedPoint + t * planeNormal;
+
+        //formula (5.6.7)
+        float a = (d - Vector3.Dot(fixedPoint, planeNormal));
+
+        Vector3 point = fixedPoint + a * planeNormal;
 
         info.Intersect = true;
-        info.Float1 = t;
+        info.Float1 = a;
         info.Vector1 = point;
     }
 
@@ -396,6 +535,7 @@ public class MathUtil
     /// <returns></returns>
     public static void GetNearstPointToSphere(Vector3 center, float radius, Vector3 fixedPoint, IntersectInfo info)
     {
+        // formula (6.3.1)
         Vector3 d = center - fixedPoint;
         float t = (d.magnitude - radius) / d.magnitude;
         Vector3 point = fixedPoint + t * d;
@@ -446,6 +586,7 @@ public class MathUtil
     {
         info.Intersect = false;
 
+        //formula (6.5.1)
         float numerator1 = normal2.y * d1 - normal1.y * d2;
         float numerator2 = normal1.x * d2 - normal2.x * d1;
         float denominator = normal1.x * normal2.y - normal2.x * normal1.y;
@@ -471,7 +612,11 @@ public class MathUtil
     public static void GetRayIntersection(Vector3 point1, Vector3 direction1, Vector3 point2, Vector3 direction2, IntersectInfo info)
     {
         info.Intersect = false;
+
+        //formula (6.6.1)
         float numerator1 = Vector3.Dot(Vector3.Cross((point2 - point1), direction2), Vector3.Cross(direction1, direction2));
+
+        //formula (6.6.2)
         float numerator2 = Vector3.Dot(Vector3.Cross((point2 - point1), direction1), Vector3.Cross(direction1, direction2));
         float denominator = Mathf.Pow(Vector3.Cross(direction1, direction2).magnitude, 2);
         if (denominator == 0.0f)
@@ -497,9 +642,11 @@ public class MathUtil
     /// <param name="planeD">plane implicit parameter</param>
     /// <param name="info">intersect info</param>
     /// <returns></returns>
-    public static void GetRayToPlaneIntersection(Vector3 rayStart, Vector3 rayDirection, Vector3 planeNormal, float planeD, bool reverseIntersect ,IntersectInfo info)
+    public static void GetRayToPlaneIntersection(Vector3 rayStart, Vector3 rayDirection, Vector3 planeNormal, float planeD, bool reverseIntersect, IntersectInfo info)
     {
         info.Intersect = false;
+
+        //formula (6.7.1)
         float numerator = planeD - Vector3.Dot(rayStart, planeNormal);
         float denominator = Vector3.Dot(rayDirection, planeNormal);
         //the ray is parallel to the plane
@@ -532,9 +679,12 @@ public class MathUtil
     public static void GetThreePlanesIntersection(Vector3 point1, Vector3 normal1, Vector3 point2, Vector3 normal2, Vector3 point3, Vector3 normal3, IntersectInfo info)
     {
         info.Intersect = false;
+
         float d1 = GetPlane(point1, normal1);
         float d2 = GetPlane(point2, normal2);
         float d3 = GetPlane(point3, normal3);
+
+        //formula (6.8.1)
         Vector3 numerator = d1 * Vector3.Cross(normal2, normal3) + d2 * Vector3.Cross(normal3, normal1) + d3 * Vector3.Cross(normal1, normal2);
         float denominator = Vector3.Dot(Vector3.Cross(normal1, normal2), normal3);
         if (denominator == 0.0f)
@@ -559,12 +709,18 @@ public class MathUtil
     {
         info.Intersect = false;
 
+        //formula (6.9.1)
         Vector3 e = sphereCenter - rayStart;
+
+        //formula (6.9.2)
         float a = Vector3.Dot(e, rayDirection);
+
+        //formula (6.9.3)
         float f = sphereRadius * sphereRadius - e.magnitude * e.magnitude + a * a;
         if (f < 0)
             return;
 
+        //formula (6.9.4)
         float t = a - Mathf.Sqrt(f);
         Vector3 point = rayStart + t * rayDirection;
 
@@ -584,8 +740,12 @@ public class MathUtil
     /// <returns></returns>
     public static void GetStaticSphereIntersect(Vector3 center1, float radius1, Vector3 center2, float radius2, IntersectInfo info)
     {
-        float distance = (center2 - center1).magnitude;
-        if (distance * distance < Mathf.Pow(radius1 + radius2, 2))
+        //(6.10.2) 
+        float distance = Mathf.Pow((center2.x - center1.x), 2) + Mathf.Pow((center2.y - center1.y), 2) + Mathf.Pow((center2.z - center1.z), 2);
+
+        //float distance = (center2 - center1).magnitude;
+        //(6.10.1) 
+        if (distance < Mathf.Pow(radius1 + radius2, 2))
             info.Intersect = true;
         else
             info.Intersect = false;
@@ -606,14 +766,21 @@ public class MathUtil
     {
         info.Intersect = false;
 
+        //formula (6.11.1)
         Vector3 e = staticCenter - dynamicCenter;
+
+        //formula (6.11.2)
         float r = dynamicRadius + staticRadius;
+
         Vector3 d = moveDirection;
-        float radical = Mathf.Pow(Vector3.Dot(e, d), 2) - Vector3.Dot(e, e) + r * r;
+
+        //formula (6.11.3)
+        float radical = Mathf.Pow(Vector3.Dot(e, d), 2) - (Vector3.Dot(e, e) - r * r);
         if (radical < 0)
             return;
 
         float t = Vector3.Dot(e, d) - Mathf.Sqrt(radical);
+
         Vector3 point = dynamicCenter + t * moveDirection;
 
         info.Intersect = true;
@@ -631,9 +798,11 @@ public class MathUtil
     /// <returns></returns>
     public static void GetSphereToAABBIntersect(Vector3 center, float radius, AABB3 box, IntersectInfo info)
     {
+        //formula (6.12.1) (6.12.2)
         bool xcheck = center.x >= (box.min.x - radius) && center.x <= (box.max.x + radius);
         bool ycheck = center.y >= (box.min.y - radius) && center.y <= (box.max.y + radius);
         bool zcheck = center.z >= (box.min.z - radius) && center.z <= (box.max.z + radius);
+
         if (xcheck && ycheck && zcheck)
             info.Intersect = true;
         else
@@ -651,6 +820,7 @@ public class MathUtil
     /// <returns></returns>
     public static void GetSphereToPlaneIntersect(Vector3 planeNormal, float planeD, Vector3 sphereCenter, float sphereRadius, IntersectInfo info)
     {
+        //formula (5.6.6)
         float d = Vector3.Dot(sphereCenter, planeNormal) - planeD;
 
         if (Mathf.Abs(d) <= sphereRadius)
@@ -698,8 +868,12 @@ public class MathUtil
         info.Intersect = false;
 
         float planeD = GetPlane(planePoint, planeNormal);
-        float numerator = planeD - Vector3.Dot((sphereCenter - sphereRadius * planeNormal), planeNormal);
+
+        //formula (6.14.1)
+        float numerator = planeD - Vector3.Dot(sphereCenter, planeNormal) + sphereRadius;
         float denominator = Vector3.Dot(sphereDirection, planeNormal);
+
+        //the ray is parallel to the plane
         if (denominator == 0.0f)
             return;
 
@@ -716,38 +890,41 @@ public class MathUtil
     /// </summary>
     /// <param name="rayStart">ray start</param>
     /// <param name="rayDirection">ray direction need normalize</param>
-    /// <param name="trianglePoint0">triangle point</param>
-    /// <param name="trianglePoint1">triangle point</param>
-    /// <param name="trianglePoint2">triangle point</param>
+    /// <param name="p0">triangle point</param>
+    /// <param name="p1">triangle point</param>
+    /// <param name="p2">triangle point</param>
     /// <param name="info">intersect info</param>
     /// <returns></returns>
-    public static void GetRayToTriangleIntersection(Vector3 rayStart, Vector3 rayDirection, Vector3 trianglePoint0, Vector3 trianglePoint1, Vector3 trianglePoint2, IntersectInfo info)
+    public static void GetRayToTriangleIntersection(Vector3 rayStart, Vector3 rayDirection, Vector3 p0, Vector3 p1, Vector3 p2, IntersectInfo info)
     {
         info.Intersect = false;
-        Vector3 e1 = trianglePoint1 - trianglePoint0;
-        Vector3 e2 = trianglePoint2 - trianglePoint1;
+        Vector3 e1 = p1 - p0;
+        Vector3 e2 = p2 - p1;
 
         Vector3 n = Vector3.Cross(e1, e2);
 
-        float dot = Vector3.Dot(n, rayDirection);
-        if (dot >= 0.0f)
-            return ;
+        //debug
+        Gizmos.color = Color.yellow;
+        Vector3 barycenter = GetTriangleBarycenter(p0,p1,p2);
+        Gizmos.DrawLine(barycenter,barycenter + n);
 
+        float denominator = Vector3.Dot(n, rayDirection);
+        //In almost the same direction
+        if (denominator >= 0.0f)
+            return;
+
+        //formula (6.7.1)
         //obtaining plane parameters
-        float d = Vector3.Dot(n, trianglePoint0);
-
+        float d = Vector3.Dot(n, p0);
         //get the t value at the intersection of the plane
-        float t = d - Vector3.Dot(n, rayStart);
-
+        float numerator = d - Vector3.Dot(n, rayStart);
         //ray origin on the backside of the ploygon
-        if (t > 0.0f)
-            return ;
+        if (numerator > 0.0f)
+            return;
 
-        t = t / dot;
-
+        float t = numerator / denominator;
         Vector3 point = rayStart + t * rayDirection;
-
-        Vector3 barycentric = GetBarycentric3D(trianglePoint0, trianglePoint1, trianglePoint2, point);
+        Vector3 barycentric = GetBarycentric3D(p0, p1, p2, point);
         if (barycentric.x < 0 || barycentric.y < 0 || barycentric.z < 0)
             return;
 
@@ -949,9 +1126,12 @@ public class MathUtil
                 return;
         }
         else
-        {
+        { 
             float oneOverD = 1.0f / direction.x;
+            //formula (6.18.1)
             float xEnter = (stationaryBox.min.x - movingBox.max.x) * oneOverD;
+
+            //formula (6.18.2)
             float xLeave = (stationaryBox.max.x - movingBox.min.x) * oneOverD;
 
             if (xEnter > xLeave)

@@ -41,7 +41,7 @@ public class StaticAABBIntersection : MonoBehaviour
     {
         GizmosExtension.DrawLHCoordinate(Vector3.zero);
 
-        Gizmos.color = Color.green;
+        Gizmos.color = Color.red;
 
         if (DrawTriangle)    
             GizmosExtension.DrawWireTriangle(P1, P2, P3);
@@ -65,7 +65,7 @@ public class StaticAABBIntersection : MonoBehaviour
         MathUtil.GetStaticAABBIntersection(box1,box2, info);
         if(info.Intersect)
         {
-            Gizmos.color = Color.red;
+            Gizmos.color = Color.green;
             GizmosExtension.DrawBoundingBox(info.Vector1,info.Vector2);
         }
     }

@@ -44,7 +44,7 @@ public class PointToAABB : MonoBehaviour
         GizmosExtension.DrawBoundingBox(box.min, box.max);
 
         MathUtil.GetNearstPointToAABB(box, Obj.transform.position, info);
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.green;
         Gizmos.DrawSphere(info.Vector1, 0.1f);
         Gizmos.DrawLine(Obj.transform.position, info.Vector1);
     }

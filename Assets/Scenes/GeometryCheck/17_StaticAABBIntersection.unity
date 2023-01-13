@@ -154,8 +154,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   P1: {x: 1, y: 1, z: 1}
   P2: {x: 3, y: 1, z: 0}
-  P3: {x: 2, y: 3, z: -1}
-  P4: {x: 2, y: 3.95, z: 0.25}
+  P3: {x: 1, y: 3, z: -2}
+  P4: {x: 2, y: 3.95, z: 0.47}
   P5: {x: 2.6, y: 2.11, z: -0.12}
   P6: {x: 4.26, y: 3.24, z: -0.55}
   DrawTriangle: 0

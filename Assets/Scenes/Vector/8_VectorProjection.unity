@@ -328,9 +328,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1d29485cfedf2a4398b4cdba4d963cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  V: {x: 3, y: 3, z: 0}
+  V: {x: 5.65, y: 3, z: 0}
   N: {x: 1, y: 0, z: 0}
-  VParallel: {x: 3, y: 0, z: 0}
+  VParallel: {x: 5.65, y: 0, z: 0}
   VVertical: {x: 0, y: 3, z: 0}
 --- !u!4 &2044074539
 Transform:

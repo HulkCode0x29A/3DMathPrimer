@@ -152,10 +152,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa001eaa3968bea4b98c709557eda0dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Origin: {x: 0, y: 1.66, z: 0}
-  Direction: {x: 2.07, y: 1.45, z: 0.11}
-  T: 5.5
-  Center: {x: 3, y: 3.6, z: 0}
+  Origin: {x: 0.05, y: 1.66, z: 0}
+  Direction: {x: 2.13, y: 1.53, z: 0.11}
+  T: 4.85
+  Center: {x: 2.62, y: 3.6, z: 0}
   R: 0.5
 --- !u!4 &293472475
 Transform:

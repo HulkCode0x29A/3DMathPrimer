@@ -330,7 +330,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Center: {x: 0.5, y: 0.5, z: 0.5}
   Size: {x: 0.5, y: 0.5, z: 0.5}
-  Translation: {x: 1, y: 1, z: 1}
+  Translation: {x: 0.16, y: 1.25, z: 0.15}
 --- !u!4 &1143772959
 Transform:
   m_ObjectHideFlags: 0

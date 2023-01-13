@@ -155,9 +155,9 @@ MonoBehaviour:
   P1: {x: 1.17, y: 1, z: 0}
   P2: {x: 3, y: 1, z: 0}
   P3: {x: 2, y: 0, z: 0}
-  Alpha: 0.308
-  Beta: 0.254
-  Gamma: 0.439
+  Alpha: 0.333
+  Beta: 0.3333
+  Gamma: 0.33333
 --- !u!4 &874298578
 Transform:
   m_ObjectHideFlags: 0

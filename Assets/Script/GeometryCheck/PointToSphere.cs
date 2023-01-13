@@ -31,7 +31,8 @@ public class PointToSphere : MonoBehaviour
         Gizmos.DrawSphere(Center, R);
 
         MathUtil.GetNearstPointToSphere(Center, R, Obj.transform.position, info);
-        Gizmos.color = Color.red;
+
+        Gizmos.color = Color.green;
         Gizmos.DrawSphere(info.Vector1, 0.1f);
         Gizmos.DrawLine(Obj.transform.position, info.Vector1);
     }

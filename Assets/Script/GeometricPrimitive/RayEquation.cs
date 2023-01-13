@@ -37,6 +37,7 @@ public class RayEquation : MonoBehaviour
         switch (Define)
         {
             case RayDefine.DefineWithLength:
+                //formula (5.1.3)
                 target = P0 + Length * P1.normalized;
                 Gizmos.color = Color.cyan;
                 Gizmos.DrawLine(P0, target);
@@ -45,6 +46,7 @@ public class RayEquation : MonoBehaviour
                 Gizmos.DrawLine(Vector3.zero, P1.normalized);
                 break;
             case RayDefine.DefineWithT:
+                //formula (5.1.2)
                 target = P0 + (P1 - P0) * T;
                 Gizmos.color = Color.cyan;
                 Gizmos.DrawLine(P0, target);

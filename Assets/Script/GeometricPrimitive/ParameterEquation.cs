@@ -22,6 +22,7 @@ public class ParameterEquation : MonoBehaviour
     {
         GizmosExtension.DrawLHCoordinate(Vector3.zero);
 
+        //formula (5.0.2)
         float x = Mathf.Cos(Mathf.Deg2Rad * 360 * T);
         float y = Mathf.Sin(Mathf.Deg2Rad * 360 * T);
 

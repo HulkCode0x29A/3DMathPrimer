@@ -37,6 +37,7 @@ public class BarycentricCoordinates3D : MonoBehaviour
         if(null != Obj)
         {
             Barycentric = MathUtil.GetBarycentric3D(P1, P2, P3, Obj.transform.position, true);
+          
             if (DrawSphere)
             {
                 Gizmos.color = Color.red;
@@ -44,10 +45,5 @@ public class BarycentricCoordinates3D : MonoBehaviour
             }
                 
         }
-
-        
-        
-
-        
     }
 }

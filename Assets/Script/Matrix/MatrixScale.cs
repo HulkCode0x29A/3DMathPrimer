@@ -38,7 +38,7 @@ public class MatrixScale : MonoBehaviour
         Vector3 t3 = matrix.MultiplyPoint(P3);
         Vector3 t4 = matrix.MultiplyPoint(P4);
 
-        Gizmos.color = Color.blue;
+        Gizmos.color = Color.green;
         GizmosExtension.DrawQuad(t1, t2, t3, t4);
     }
 }

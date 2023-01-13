@@ -42,6 +42,7 @@ public class EulerAngleLerp : MonoBehaviour
                 SingleLerp();
                 break;
             case AngleLerpEnum.WrapLerp:
+                //Just a demonstration Interpolation is still going to call Mathf.LerpAngle
                 float theta = EndAngle - StartAngle;
                 float delta = (theta - 360) * ((theta + 180) / 360);
                 float angle = StartAngle + T * delta;
@@ -75,6 +76,7 @@ public class EulerAngleLerp : MonoBehaviour
 
     private void SingleLerp()
     {
+        //formula (4.0.2)
         float theta = EndAngle - StartAngle;
         float angle = StartAngle + T * theta;
         Model.transform.localEulerAngles = new Vector3(0, angle, 0);

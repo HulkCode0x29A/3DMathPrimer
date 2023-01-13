@@ -245,7 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fbaec98ff93cbe49882400d94d87666, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Special: 1
+  Special: 2
   P1: {x: 3, y: 0, z: 0}
   P2: {x: 3, y: 4, z: 0}
   P3: {x: 0, y: 0, z: 0}

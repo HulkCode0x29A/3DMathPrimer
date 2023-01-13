@@ -7,6 +7,8 @@ public class PlaneDraw : MonoBehaviour
     public Vector3 P;
 
     public Vector3 N;
+
+    public float PlaneD;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +23,7 @@ public class PlaneDraw : MonoBehaviour
     private void OnDrawGizmos()
     {
         GizmosExtension.DrawWirePlane(P,N,Color.yellow,Color.white, true);
+        PlaneD = MathUtil.GetPlane(P,N.normalized);
     }
 
    

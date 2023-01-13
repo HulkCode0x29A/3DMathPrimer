@@ -238,8 +238,8 @@ MonoBehaviour:
   Center1: {x: 8, y: 3.24, z: 0}
   R1: 0.5
   Direction: {x: -1, y: -0.3, z: 0}
-  T: 7.24
-  Center2: {x: 3, y: 1, z: 0}
+  T: 8
+  Center2: {x: 3.04, y: 1, z: 0}
   R2: 1
 --- !u!4 &2068108811
 Transform:

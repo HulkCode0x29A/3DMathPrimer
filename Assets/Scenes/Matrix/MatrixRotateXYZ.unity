@@ -153,8 +153,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   P1: {x: 1, y: 1, z: 0}
-  P2: {x: 1.0580442, y: 0.89602196, z: -0.278724}
-  RotateVector: {x: 26.36, y: 38.7, z: 0}
+  P2: {x: 0.8793175, y: 0.9874138, z: -0.5018114}
+  RotateVector: {x: 9.1, y: 38.7, z: 0}
 --- !u!4 &318304159
 Transform:
   m_ObjectHideFlags: 0

@@ -239,10 +239,10 @@ public class GizmosExtension
     {
         Gizmos.DrawLine(start, end);
         Vector3 arrow1 = (start - end).normalized * arrowLength;
-        
-        arrow1 = Matrix4x4.Rotate(Quaternion.Euler(0,0,30)).MultiplyPoint(arrow1);
+
+        arrow1 = Matrix4x4.Rotate(Quaternion.Euler(0, 0, 30)).MultiplyPoint(arrow1);
         Vector3 arrow2 = (start - end).normalized * arrowLength;
-        arrow2 = Matrix4x4.Rotate(Quaternion.Euler(0, 0, - 30)).MultiplyPoint(arrow2);
+        arrow2 = Matrix4x4.Rotate(Quaternion.Euler(0, 0, -30)).MultiplyPoint(arrow2);
         Gizmos.DrawLine(end, end + arrow1);
         Gizmos.DrawLine(end, end + arrow2);
     }
@@ -251,7 +251,7 @@ public class GizmosExtension
     public static void DrawBoundingBox(Vector3 min, Vector3 max)
     {
         Vector3 center = (min + max) / 2;
-        Vector3 size = new Vector3(max.x - min.x, max.y - min.y, max.z -min.z);
+        Vector3 size = new Vector3(max.x - min.x, max.y - min.y, max.z - min.z);
         DrawWireCube(center, size);
     }
 
@@ -263,23 +263,36 @@ public class GizmosExtension
     /// <param name="p">a point on the plane</param>
     /// <param name="n">surface normals</param>
     /// <param name="drawNormal"></param>
-    public static void DrawWirePlane(Vector3 p, Vector3 n, Color nomralColor, Color planeColor,  bool drawNormal = false)
+    public static void DrawWirePlane(Vector3 p, Vector3 n, Color nomralColor, Color planeColor, bool drawNormal = false)
     {
-        //Gizmos.color = Color.white;
-        //Gizmos.DrawSphere(p, 0.1f);
 
         Vector3 v3;
         if (n.normalized != Vector3.forward)
+        {
             v3 = Vector3.Cross(n, Vector3.forward).normalized * n.magnitude;
+
+            //debug
+            //Gizmos.color = Color.white;
+            //Gizmos.DrawSphere(p, 0.1f);
+            //Gizmos.DrawLine(p, p + Vector3.forward);
+        }
         else
+        {
             v3 = Vector3.Cross(n, Vector3.up).normalized * n.magnitude;
 
-        if(drawNormal)
-        {
-            Gizmos.color = nomralColor;
-            Gizmos.DrawLine(Vector3.zero, n);
+            //debug
+            //Gizmos.color = Color.white;
+            //Gizmos.DrawSphere(p, 0.1f);
+            //Gizmos.DrawLine(p, p + Vector3.up);
         }
 
+        if (drawNormal)
+        {
+            Gizmos.color = nomralColor;
+            Gizmos.DrawLine(p, p + n);
+        }
+
+        //debug
         //Gizmos.color = Color.blue;
         //Gizmos.DrawLine(Vector3.zero, v3);
 
@@ -288,6 +301,7 @@ public class GizmosExtension
         var q = Quaternion.AngleAxis(90.0f, n);
         v3 = q * v3;
 
+        //debug
         //Gizmos.color = Color.green;
         //Gizmos.DrawLine(Vector3.zero, v3);
 

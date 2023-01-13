@@ -331,8 +331,8 @@ MonoBehaviour:
   P1: {x: 1, y: 0.5, z: 0}
   P2: {x: 0, y: 0.5, z: 0}
   P3: {x: 0.5, y: 1.5, z: 0}
-  Angle: 86.84
-  DrawResult: 0
+  Angle: 90
+  DrawResult: 1
 --- !u!4 &1395075434
 Transform:
   m_ObjectHideFlags: 0

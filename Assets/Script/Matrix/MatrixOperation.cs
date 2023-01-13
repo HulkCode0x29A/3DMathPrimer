@@ -12,11 +12,15 @@ public class MatrixOperation : MonoBehaviour
 {
     public MatrixOperationEnum Operation;
 
+    //m00 m01 m02 m03
+    //m10 m11 m12 m13
+    //m20 m21 m22 m23
+    //m30 m31 m32 m33
     private Matrix4x4 matrix;
-    // Start is called before the first frame update
-    void Start()
+   
+    private void OnEnable()
     {
-         matrix = Matrix4x4.identity;
+        matrix = Matrix4x4.identity;
         int i = 0;
         for (int row = 0; row < 4; row++)
         {
@@ -25,13 +29,7 @@ public class MatrixOperation : MonoBehaviour
                 matrix[row, column] = ++i;
             }
         }
-        
-      
 
-    }
-
-    private void OnEnable()
-    {
         switch (Operation)
         {
             case MatrixOperationEnum.IdentityMatrix:

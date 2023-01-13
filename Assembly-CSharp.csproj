@@ -104,6 +104,7 @@
     <Compile Include="Assets\Script\Matrix\MatrixScaleByAxis.cs" />
     <Compile Include="Assets\Script\GeometryCheck\DynamicSphereIntersection.cs" />
     <Compile Include="Assets\Script\GeometryCheck\StaticSphereIntersection.cs" />
+    <Compile Include="Assets\Script\Matrix\MatrixInverse.cs" />
     <Compile Include="Assets\Script\Matrix\MatrixProjectionByAxis.cs" />
     <Compile Include="Assets\Script\Matrix\MatrixProjection.cs" />
     <Compile Include="Assets\Script\Vector\RuleOfParallelogram.cs" />
@@ -118,7 +119,6 @@
     <Compile Include="Assets\Script\Matrix\MatrixRotateYXZ.cs" />
     <Compile Include="Assets\Script\Vector\RuleOfTriangles.cs" />
     <Compile Include="Assets\Script\GeometricPrimitive\PlaneEquation.cs" />
-    <Compile Include="Assets\Script\Matrix\MatrixInverse.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
