@@ -904,9 +904,9 @@ public class MathUtil
         Vector3 n = Vector3.Cross(e1, e2);
 
         //debug
-        Gizmos.color = Color.yellow;
-        Vector3 barycenter = GetTriangleBarycenter(p0,p1,p2);
-        Gizmos.DrawLine(barycenter,barycenter + n);
+        //Gizmos.color = Color.yellow;
+        //Vector3 barycenter = GetTriangleBarycenter(p0,p1,p2);
+        //Gizmos.DrawLine(barycenter,barycenter + n);
 
         float denominator = Vector3.Dot(n, rayDirection);
         //In almost the same direction

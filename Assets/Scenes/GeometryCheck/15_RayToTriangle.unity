@@ -239,7 +239,7 @@ MonoBehaviour:
   P2: {x: 1, y: 0, z: 0}
   P3: {x: 2, y: 2, z: 1}
   Origin: {x: 1.87, y: 1, z: -3.21}
-  Direction: {x: 0.12, y: -0.2, z: 1}
+  Direction: {x: 0, y: -0.02, z: 1}
   T: 5.75
 --- !u!4 &686019337
 Transform:

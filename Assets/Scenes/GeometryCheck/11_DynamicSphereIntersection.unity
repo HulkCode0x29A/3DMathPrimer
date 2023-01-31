@@ -235,11 +235,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 999f6f1d1dfb4d440932cbc7a037db1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Center1: {x: 8, y: 3.24, z: 0}
+  Center1: {x: 8, y: 1, z: 0}
   R1: 0.5
-  Direction: {x: -1, y: -0.3, z: 0}
+  Direction: {x: -1, y: 0.66, z: 0}
   T: 8
-  Center2: {x: 3.04, y: 1, z: 0}
+  Center2: {x: 3.04, y: 3, z: 0}
   R2: 1
 --- !u!4 &2068108811
 Transform:
